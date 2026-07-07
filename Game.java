@@ -4,6 +4,9 @@
 public class Game 
 {
     private int currentTurn = -1; 
+    private Player player1; 
+    private Player player2; 
+    private Board board; 
 
     /**
      * Compares the chosen animal piece of each player 
