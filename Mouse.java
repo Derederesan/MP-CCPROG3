@@ -12,7 +12,7 @@ public class Mouse extends Animal
     public boolean canEnterRiver() 
     {
         // TODO: check if anything blocks entry? 
-        // // add **idk actuly honestly
+        // // if target is occupied logic? edit later nalang
         return true;
     }
 
