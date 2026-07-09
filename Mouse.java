@@ -31,7 +31,7 @@ public class Mouse extends Animal
         }
         
         // Mouse can capture elephant (rank 8) or another mouse (rank 1)[cite: 1]
-        // // add **idk actuly honestly if need to check traps here too
+        // // verify if tracking the traps are needed to structure directly or separate logic block
         return target.getRank() == 8 || target.getRank() == 1;
     }
 }
