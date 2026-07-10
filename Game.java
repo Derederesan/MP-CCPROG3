@@ -1,5 +1,6 @@
 /**
- * 
+ * A game allows the initialization of players and board. It keeps track of the current turn,
+ * serves as the checker on which players should go first, and checks if a player has won. 
  */
 
 public class Game 
