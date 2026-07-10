@@ -12,7 +12,8 @@ public class Game
     private Player winner; 
 
     /**
-     * Constructs a new Game that takes the input provided and assigns it to the specified attributes of the class. 
+     * Constructs a new Game that takes the input provided and assigns it 
+     * to the specified attributes of the class. 
      */
     public Game(Player player1, Player player2)
     {
