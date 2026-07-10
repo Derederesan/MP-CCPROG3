@@ -1,6 +1,5 @@
 /**
-    *  Constructs a new Space that takes the input provided 
-    * and assigns it to the specified attributes of the class.
+    *  A Player controls the movement of the animal on the board, as well as sets the color of animals. 
 */
 import java.util.ArrayList;
 
