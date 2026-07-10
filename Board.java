@@ -57,7 +57,20 @@ public class Board
         {
             return false;
         }
+        if(!animal.canMove(target))
+        {
+            return false; 
+        }
         // Basic requirement rule: program logic check structure matching ruleset
         return true;
+    }
+
+    public void moveAnimal(Animal animal, Space target)
+    {
+        //make the animals' old space null 
+        animal.getCurrentSpace().setAnimal(null); 
+        //put animal in new space
+        target.setAnimal(
+        //update animal's position
     }
 }
