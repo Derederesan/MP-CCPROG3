@@ -1,3 +1,6 @@
+/**
+* A lion 
+*/
 public class Lion extends BigCat
 {
     public Lion(Space position)
