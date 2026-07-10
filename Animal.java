@@ -48,4 +48,8 @@ public class Animal
     {
         return this.currentSpace;
     }
+
+    public boolean canMove(Space position)
+    {
+    }
 }
