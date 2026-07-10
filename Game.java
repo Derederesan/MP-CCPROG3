@@ -64,10 +64,4 @@ public class Game
             this.currentTurn=1; 
         }
     }
-    /**
-    *sets the color of each player's animals 
-    */
-public void chooseColors()
-    {
-        this.player1.setColor()
-    }
+  
