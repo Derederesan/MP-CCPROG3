@@ -1,3 +1,9 @@
+/**
+* A Board allows the initialization of the board, adding the spaces and the animals accordingly.
+* Aside from this, the Board can also check if an animal's movement is valid before updating its 
+*position on the board. It also has a getter for the space on the board. 
+*/
+
 import java.util.*; 
 
 public class Board 
@@ -6,11 +12,20 @@ public class Board
     public static final int ROWS = 9; 
     public static final int COLS = 7; 
 
+    /**
+    *  Constructs a new Board that takes the input provided 
+    * and assigns it to the specified attributes of the class.
+    */
+
     public Board()
     {
         this.board = new Space[ROWS][COLS];
         initializeBoard();
     }
+
+    /**
+    *  Initializes the board, adding the spaces and initial spaces of the animals 
+    */
 
     public void initializeBoard()
     {
@@ -42,6 +57,13 @@ public class Board
         }
     }
 
+    /**
+    * Retrieves the space according to the parameters 
+    * @param row the specified row 
+    * @param col the specifies col 
+    * @return corresponding board position or null 
+    */
+
     public Space getSpace(int row, int col)
     {
         if(row >= 0 && row < ROWS && col >= 0 && col < COLS)
@@ -50,6 +72,13 @@ public class Board
         }
         return null;
     }
+
+    /**
+    *  Checks if the animal can move to its target position 
+    * @param animal the animal to move 
+    * @param target the intended position 
+    * @return true if and only if the position is 
+    */
 
     public boolean isValidMove(Animal animal, Space target)
     {
@@ -70,7 +99,8 @@ public class Board
         //make the animals' old space null 
         animal.getCurrentSpace().setAnimal(null); 
         //put animal in new space
-        target.setAnimal(
+        target.setAnimal(animal); 
         //update animal's position
+        animal.setPosition(target); 
     }
 }
