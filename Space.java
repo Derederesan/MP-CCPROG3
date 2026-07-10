@@ -7,11 +7,13 @@ public class Space{
 
     private String type; 
     private Animal animal; 
+    private int ownerId; 
 
-    public Space(String type)
+    public Space(String type, int ownerId)
     {
         this.type=type; 
         this.animal=null; 
+        this.ownerId = ownerId; 
     }
 
     public boolean isAnimalDen()
@@ -34,6 +36,11 @@ public class Space{
         return this.type.equals(RIVER); 
     }
 
+    public boolean isEnemyDen(int playerId)
+    {
+        return this.isAnimalDen() && (this.ownerId != playerId);  
+    }
+
     public Animal getAnimal()
     {
         return this.animal; 
@@ -42,5 +49,10 @@ public class Space{
     public void setAnimal(Animal animal)
     {
         this.animal= animal; 
+    }
+
+    public int getOwnerId()
+    {
+        return this.ownerId; 
     }
 }
