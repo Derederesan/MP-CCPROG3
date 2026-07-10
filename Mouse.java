@@ -1,3 +1,8 @@
+/**
+    *  A Mouse is a subclass of the superclass animal. It checks wheter a mouse can enter a  river, 
+    * and whether or not it can capture a specific target. 
+    */
+
 public class Mouse extends Animal
 {
     public Mouse(Space position)
