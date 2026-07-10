@@ -81,4 +81,12 @@ public class Animal
         }
         return true; 
     }
+    /**
+    * Sets the new position of the animal 
+    * @param newSpace the new posiion of the animal 
+    */
+    public void setPosition(Space newSpace)
+    {
+        this.currentSpace = newSpace; 
+    }
 }
