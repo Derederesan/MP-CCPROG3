@@ -7,7 +7,13 @@ public class Game
     private Player player1; 
     private Player player2; 
     private Board board; 
+    private boolean isGameOver; 
+    private Player winner; 
 
+    public Game(Player player1, Player player2)
+    {
+        
+    }
     /**
      * Compares the chosen animal piece of each player 
      * and uses it to determine which player goes first. 
