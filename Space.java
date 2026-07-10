@@ -1,3 +1,9 @@
+/**
+* A Space allows the initialization of a space on the board, keeping track of whether 
+* it has an animal on it and who owns it. It can create any of the four spaces: land, animal den, trap or river. 
+* It also has a method to check if the specified space is either a river, a trap, a land or an animal den. 
+* It also has setter and getter methods for its animal and owner Id. 
+*/
 public class Space{
 
     public static final String LAND = "Land";  
@@ -9,6 +15,9 @@ public class Space{
     private Animal animal; 
     private int ownerId; 
 
+    /**
+    * 
+    */
     public Space(String type, int ownerId)
     {
         this.type=type; 
