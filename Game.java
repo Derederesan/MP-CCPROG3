@@ -64,4 +64,38 @@ public class Game
             this.currentTurn=1; 
         }
     }
-  
+    /*
+    *checks if a player has won 
+    */
+    public void checkWin()
+    {
+        //checks if the currentplayer's den is occupied? or if the currentplayer has occupied the enemy den?
+        //update winner to currentplayer
+        if(this.currentTurn ==1)
+        {
+            this.winner=this.player1; 
+        }
+        else
+        {
+            this.winner=this.player2;
+        }
+        //update isGameover to true
+        this.isGameOver = true; 
+    }
+    /**
+    *Returns the current player 
+    *@return the current turn of the player 
+    */
+  public int getCurrentTurn()
+    {
+        return this.currentTurn; 
+    }
+
+    /**
+    *Returns the winner 
+    *@return the winner 
+    */
+    public Player getWinner()
+    {
+        return this.winner; 
+    }
