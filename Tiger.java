@@ -5,7 +5,8 @@
 public class Tiger extends BigCat
 {
     /**
-    * Constructs the class Tiger and 
+    * Constructs the a new Tiger that takes the provided input and assigns it 
+    * to the specified attributes of the class 
     */
     
     public Tiger(Space position)
