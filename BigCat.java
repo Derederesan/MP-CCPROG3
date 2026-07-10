@@ -5,9 +5,7 @@ public abstract class BigCat extends Animal
     */
     public BigCat(String name, int rank, Space position)
     {
-        this.name = name; 
-        this.rank = rank; 
-        this.position = position; 
+        super(name, rank, position); 
     }
     /**
      * Checks if a bigcat can jump from land to river 
