@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 public class Game 
 {
     private int currentTurn = -1; 
@@ -24,8 +25,8 @@ public class Game
     /**
      * Compares the chosen animal piece of each player 
      * and uses it to determine which player goes first. 
-     * @param 1 chosen animal piece of player 1 
-     * @param 2 chosen animal piece of player 2
+     * @param p1Choice the chosen animal piece of player 1 
+     * @param p2Choice the chosen animal piece of player 2
      * @return the player that goes first 
      */
     public int firstPick(Animal p1Choice, Animal p2Choice)
@@ -63,68 +64,10 @@ public class Game
             this.currentTurn=1; 
         }
     }
-
-    public boolean canCapture(Animal attacker, Animal target)
+    /**
+    *sets the color of each player's animals 
+    */
+public void chooseColors()
     {
-        //check if attacker is an elephant and target is a mouse
-        if(attacker.getRank()==8 && target.getRank()==1)
-        {
-            System.out.println("Invalid capture. Elephant cannot capture a mouse");
-            return false;
-        }
-        //check if attacker is a mouse and is on the river
-        else if(attacker.getRank()==1 && attacker.getCurrentSpace().isRiver())
-        {
-             //check if target is elephant
-                 if(target.getRank()==8)
-                 {
-                    return false; 
-                 }
-                 //check if target is a mouse
-                 else if(target.getRank()==1)
-                 {
-                    //check if mouse is on land 
-                    if(target.getCurrentSpace().isLand())
-                    {
-                        return false; 
-                    }
-                    else if(target.getCurrentSpace().isRiver())
-                    {
-                        return true; 
-                    }
-                 }        
-        }
-         //if mouse is on land
-            else
-            {
-                //check if target is elephant
-                if(target.getRank()==8)
-                {
-                    return true; 
-                }
-                //check if target is mouse and is on river
-                else if(target.getRank()==1)
-                {
-                    if(target.getCurrentSpace().isRiver())
-                    {
-                        return false;
-                    }
-                    else if(target.getCurrentSpace().isLand())
-                    {
-                        return true; 
-                    }
-                    
-                }    
-            }
-
-        //if attacker is none of the above, check if opponent's piece is on one of player's traps 
-        if(target.getCurrentSpace().isTrap())
-        {
-            return true; 
-        }
-        //if not, check if attacker is equal or higher rank than target 
-        return attacker.getRank()>=target.getRank(); 
+        this.player1.setColor()
     }
-
-    return false; 
-}
