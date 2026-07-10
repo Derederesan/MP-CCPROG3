@@ -93,7 +93,11 @@ public class Board
         // Basic requirement rule: program logic check structure matching ruleset
         return true;
     }
-
+    /**  
+    *Moves an animal from is previous space to its new space 
+    * @param animal the animal that is to be moved 
+    * @target the new space the animal intends to occupy 
+    */
     public void moveAnimal(Animal animal, Space target)
     {
         //make the animals' old space null 
