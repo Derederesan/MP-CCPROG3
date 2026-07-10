@@ -20,20 +20,6 @@ public class Animal
         this.currentSpace = position;  
     }
 
-    public void moveAnimal(Space position)
-    {
-        //update old Space to null 
-        if(this.currentSpace!=null)
-        {
-             this.currentSpace.setAnimal(null);
-        }
-      
-        //update currentSpace to reflect new position
-        this.currentSpace = position; 
-        //add new position to space 
-        this.currentSpace.setAnimal(this);
-    }
-
     public String getName()
     {
         return this.name; 
