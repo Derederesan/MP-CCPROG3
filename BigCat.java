@@ -1,3 +1,8 @@
+/**
+    * A BigCat that initializes the BigCats on the board and checks
+    * whether it can jump over the river and move to the land across it. 
+    */
+
 public abstract class BigCat extends Animal
 {
     /**
