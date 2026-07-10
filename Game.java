@@ -10,9 +10,16 @@ public class Game
     private boolean isGameOver; 
     private Player winner; 
 
+    /**
+     * Constructs a new Game that takes the input provided and assigns it to the specified attributes of the class. 
+     */
     public Game(Player player1, Player player2)
     {
-        
+        this.player1 = player1; 
+        this.player2 = player2;
+        this.board = new Board; 
+        this.isGameOver = false; 
+        this.winner = null; 
     }
     /**
      * Compares the chosen animal piece of each player 
