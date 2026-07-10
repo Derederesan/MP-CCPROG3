@@ -3,15 +3,13 @@ import java.util.ArrayList;
 public class Player 
 {
     private int playerNum; 
-    private String name; 
     private String color; 
-    private char movement; 
+    private char move; 
     private ArrayList<Animal> animals; 
 
-    public Player(int playerNum, String name)
+    public Player(int playerNum)
     {
         this.playerNum = playerNum;
-        this.name = name;
         this.animals = new ArrayList<Animal>();
     }
 
