@@ -24,7 +24,7 @@ public abstract class BigCat extends Animal
        {
           if(position.getAnimal()!=null && position.getAnimal().getRank()==1)
           {
-             return false 
+             return false; 
           }
           return true; 
        }
