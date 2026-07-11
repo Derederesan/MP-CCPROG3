@@ -19,7 +19,7 @@ public class Driver
             Animal p2FirstAnimal = player2.getAnimals().get(0);
             game.firstPick(p1FirstAnimal, p2FirstAnimal);
         } else {
-            System.out.println("Setup temporary pieces in your Player class to test firstPick!");
+            System.out.println("No animals initialized yet. Initialize the animal pieces before testing firstPick().");
         }
 
         // basic turn rotation verification
