@@ -32,11 +32,7 @@ public class Mouse extends Animal
             return false;
         }
 
-        // An opponent piece on a trap can be captured regardless of rank[cite: 1]
-        if (target.getCurrentSpace().isTrap())
-        {
-            return true;
-        }
+      
 
         // Mouse can capture an elephant (rank 8) or another mouse (rank 1)[cite: 1]
         return target.getRank() == 8 || target.getRank() == 1;
