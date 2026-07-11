@@ -153,106 +153,43 @@ public class Board
     * @param animal the animal that is to be moved 
     * @param direction the direction the animal intends to move 
     */
-    public void moveAnimal(Animal animal, char direction)
+    public void moveAnimal(Animal animal, char direction) 
     {
-        //calculate coordinates 
         int r = animal.getRow();
-        int c= animal.getCol(); 
-        
-    	if(animal instanceof BigCat)
-    	{
-           while(getSpace(r,c) !=null && getSpace(r,c).isRiver())
-            {
-                if(direction == 'U')
-                {
-                    r--;
-                }
-                else if(direction == 'D')
-                {
-                    r++;
-                }
-                else if(direction == 'L')
-                {
-                    c--;
-                }
-                else if(direction == 'R')
-                {
-                    c++;
-                }
-            }  
-            Space fposition = getSpace(r,c); 
-            if(isValidMove(animal,fposition))
-            {
-                //checks if there is an animal on the current space 
-                if(fposition.getAnimal() != null)
-                {
-                    Animal victim  = fposition.getAnimal(); 
-
-                    //if animal can be captured, capture it 
-                    if(animal.canCapture(victim))
-                    {
-                        fposition.setAnimal(null); 
-                        performMove(animal,target,r,c); 
-                    }
-                    else
-                    {
-                        System.out.println("Unable to capture animal!");
-                    }
-                    
-                }
-                else
-                {
-                    performMove(animal, fposition,r, c); 
-                }
-                
+        int c = animal.getCol();
+    
+        if (animal instanceof BigCat) {
+            // Jump logic
+            while (getSpace(r, c) != null && getSpace(r, c).isRiver()) {
+                if (direction == 'U') r--;
+                else if (direction == 'D') r++;
+                else if (direction == 'L') c--;
+                else if (direction == 'R') c++;
             }
-    	}
-    	else
-    	{
-        	if(direction == 'U')
-                {
-                    r--;
+        } else {
+            // Standard movement
+            if (direction == 'U') r--;
+            else if (direction == 'D') r++;
+            else if (direction == 'L') c--;
+            else if (direction == 'R') c++;
+        }
+    
+        Space target = getSpace(r, c);
+    
+        if (isValidMove(animal, target)) {
+            // Consolidated Capture and Move Logic
+            if (target.getAnimal() != null) {
+                Animal victim = target.getAnimal();
+                if (animal.canCapture(victim)) {
+                    target.setAnimal(null);
+                    performMove(animal, target, r, c);
+                } else {
+                    System.out.println("Unable to capture animal!");
                 }
-                else if(direction == 'D')
-                {
-                    r++;
-                }
-                else if(direction == 'L')
-                {
-                    c--;
-                }
-                else if(direction == 'R')
-                {
-                    c++;
-                }
-        
-                Space target = getSpace(r, c); 
-        
-                if (isValidMove(animal,target))
-                {
-                    if(target.getAnimal () != null)
-                    {
-                        Animal toCapture = target.getAnimal();
-
-                        if(animal.canCapture(toCapture))
-                        {
-                            target.setAnimal(null); 
-                            performMove(animal,target,r,c);
-                        }
-                        else
-                        {
-                            System.out.println("Unable to capture animal!");
-                        }
-                    }
-                    else
-                    {
-                         performMove(animal, target, r,c); 
-                    }
-                   
-                }
-    	}
-         
-        
+            } else {
+                performMove(animal, target, r, c);
+            }
+        }
     }
    
 }
