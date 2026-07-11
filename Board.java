@@ -116,7 +116,7 @@ public class Board
     }
    /**  
     * Calculates the coordinates the animal intends to move to, checks if move is valis 
-    * and moves the animal 
+    * and moves the animal. Also checks if animal can capture another animal
     * @param animal the animal that is to be moved 
     * @param direction the direction the animal intends to move 
     */
@@ -150,7 +150,28 @@ public class Board
             Space fposition = getSpace(r,c); 
             if(isValidMove(animal,fposition))
             {
-                performMove(animal, fposition,r, c); 
+                //checks if there is an animal on the current space 
+                if(fposition.getAnimal() != null)
+                {
+                    Animal victim  = fposition.getAnimal(); 
+
+                    //if animal can be captured, capture it 
+                    if(animal.canCapture(victim))
+                    {
+                        fposition.setAnimal(null); 
+                        performMove(animal,target,r,c); 
+                    }
+                    else
+                    {
+                        System.out.println("Unable to capture animal!");
+                    }
+                    
+                }
+                else
+                {
+                    performMove(animal, fposition,r, c); 
+                }
+                
             }
     	}
     	else
@@ -176,7 +197,25 @@ public class Board
         
                 if (isValidMove(animal,target))
                 {
-                    performMove(animal, target, r,c); 
+                    if(target.getAnimal () != null)
+                    {
+                        Animal toCapture = target.getAnimal();
+
+                        if(animal.canCapture(toCapture))
+                        {
+                            target.setAnimal(null); 
+                            performMove(animal,target,r,c);
+                        }
+                        else
+                        {
+                            System.out.println("Unable to capture animal!");
+                        }
+                    }
+                    else
+                    {
+                         performMove(animal, target, r,c); 
+                    }
+                   
                 }
     	}
          
