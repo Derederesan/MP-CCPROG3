@@ -130,7 +130,7 @@ public class Animal
      */
     public boolean canCapture(Animal target)
     {
-        //if attacker is currently on a trap 
+        //if target is currently on a trap 
         if(target.getCurrentSpace().isTrap())
         {
             return true; 
