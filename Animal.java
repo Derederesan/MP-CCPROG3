@@ -124,12 +124,11 @@ public class Animal
 
     /**
      * Checks if the attacker can capture the intended target 
-     * @param attacker the animal that the current player has chosen 
      * @param target the animal that the current player is targeting 
      * @return true if and only if the current target is either in a trap or attacker
      * is equal/higher rank than the target
      */
-    public boolean canCapture(Animal attacker, Animal target)
+    public boolean canCapture(Animal target)
     {
         //if attacker is currently on a trap 
         if(target.getCurrentSpace().isTrap())
@@ -137,11 +136,11 @@ public class Animal
             return true; 
         }
         //if attacker is an elephant and it wishes to capture a mouse 
-        if((attacker.getRank()==8) && (target.getRank()==1))
+        if(this.RANK==8 && target.getRank()==1)
         {
             return false;
         }
         //if not, check if attacker is equal or higher rank than target 
-        return attacker.getRank()>=target.getRank(); 
+        return this.getRank()>=target.getRank(); 
     }
 }
