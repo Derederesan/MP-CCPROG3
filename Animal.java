@@ -89,4 +89,24 @@ public class Animal
     {
         this.currentSpace = newSpace; 
     }
+    /**
+     * Checks if the attacker can capture the intended target 
+     * @param attacker the animal that the current player has chosen 
+     * @param target the animal that the current player is targeting 
+     * @return true if and only if the current target is either in a trap or attacker
+     * is equal/higher rank than the target
+     */
+    public boolean canCapture(Animal attacker, Animal target)
+    {
+        //if attacker is currently on a trap 
+        if(target.getCurrentSpace().isTrap())
+        {
+            return true; 
+        }
+        //if not, check if attacker is equal or higher rank than target 
+        return attacker.getRank()>=target.getRank(); 
+    }
+
+    return false; 
+    }
 }
