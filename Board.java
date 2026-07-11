@@ -24,7 +24,7 @@ public class Board
     }
 
     /**
-    *  Initializes the board, adding the spaces and initial spaces of the animals 
+    *  Initializes the board, adding the spaces  
     */
 
     public void initializeBoard()
@@ -72,7 +72,7 @@ public class Board
         }
         return null;
     }
-
+    
     /**
     *  Checks if the animal can move to its target position 
     * @param animal the animal to move 
@@ -84,6 +84,7 @@ public class Board
     {
         if(target == null)
         {
+            System.out.println("Move blocked: Out of bounds!");
             return false;
         }
         if(!animal.canMove(target))
@@ -93,28 +94,60 @@ public class Board
         // Basic requirement rule: program logic check structure matching ruleset
         return true;
     }
-    /**  
+     /**  
     *Moves an animal from is previous space to its new space 
+    *@param animal the animal that will move 
+    *@param target the space the animal is moving to 
+    *@param newRow the row the animal is moving to 
+    *@param newCol the column the animal is moving to 
+    */
+    private void performMove(Animal animal, Space target, int newRow, int newCol) 
+    {
+        // Make the animal's old space null
+        animal.getCurrentSpace().setAnimal(null);
+        
+        // Put animal in new space
+        target.setAnimal(animal);
+        
+        // Update the animal's position
+        animal.updatePosition(target, newRow, newCol);
+    }
+    /**  
+    * Calculates the coordinates the animal intends to move to, checks if move is valis 
+    * and moves the animal 
     * @param animal the animal that is to be moved 
-    * @target the new space the animal intends to occupy 
+    * @param direction the direction the animal intends to move 
     */
-    public void moveAnimal(Animal animal, Space target)
+    public void moveAnimal(Animal animal, char direction)
     {
-        //make the animals' old space null 
-        animal.getCurrentSpace().setAnimal(null); 
-        //put animal in new space
-        target.setAnimal(animal); 
-        //update animal's position
-        animal.setPosition(target); 
+        //calculate coordinates 
+        int r = animal.getRow();
+        int c= animal.getCol(); 
+        
+         if(direction == 'U')
+        {
+            r--;
+        }
+        else if(direction == 'D')
+        {
+            r++;
+        }
+        else if(direction == 'L')
+        {
+            c--;
+        }
+        else if(direction == 'R')
+        {
+            c++;
+        }
+
+        Space target = getSpace(r, c); 
+
+        if (isValidMove(animal,target)
+        {
+            performMove(animal, target, r,c); 
+        }
+        
     }
-    /**
-    * Calculates the target space based on given direction 
-    * @param animal The animal attempting to move 
-    * @param direction The chosen direction; 'U','D','L','R'
-    * @return The row and column of the space 
-    */
-    public Space getSpaceDirection(Animal animal, char direction)
-    {
-        int currentPosition = animal.getCurrentSpace().
-    }
+   
 }
