@@ -128,7 +128,30 @@ public class Board
         
     	if(animal instanceof BigCat)
     	{
-           while( 
+           while(getSpace(r,c) !=null && getSpace(r,c).isRiver())
+            {
+                if(direction == 'U')
+                {
+                    r--;
+                }
+                else if(direction == 'D')
+                {
+                    r++;
+                }
+                else if(direction == 'L')
+                {
+                    c--;
+                }
+                else if(direction == 'R')
+                {
+                    c++;
+                }
+            }  
+            Space fposition = getSpace(r,c); 
+            if(isValidMove(animal,fposition))
+            {
+                performMove(animal, fposition,r, c); 
+            }
     	}
     	else
     	{
