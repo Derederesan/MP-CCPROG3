@@ -6,7 +6,7 @@ public class Driver
         Player player1 = new Player(1);
         Player player2 = new Player(2);
 
-        // Instantiate the main game controller
+        // Create the game
         Game game = new Game(player1, player2);
         System.out.println("=== Animal Chess ===");
         System.out.println("Game initialized successfully!");
