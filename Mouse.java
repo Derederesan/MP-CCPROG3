@@ -5,6 +5,9 @@
 
 public class Mouse extends Animal
 {
+   /**
+   *
+   */
     public Mouse(Space position)
     {
         super("Mouse", 1, position);
