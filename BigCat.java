@@ -8,9 +8,9 @@ public abstract class BigCat extends Animal
     /**
     *Constructs a new BigCat that takes the input and assigns it to its attributes 
     */
-    public BigCat(String name, int rank, Space position)
+    public BigCat(String name, int rank, Space position, int ownerId, int col, int row)
     {
-        super(name, rank, position); 
+        super(name, rank, position, ownerId, col, row);
     }
     /**
      * Checks if a bigcat can jump across river 
