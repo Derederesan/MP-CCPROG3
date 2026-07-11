@@ -71,18 +71,31 @@ public class Game
     */
     public void checkWin()
     {
-        //checks if the currentplayer's den is occupied? or if the currentplayer has occupied the enemy den?
-        //update winner to currentplayer
+        //checks who current player is 
+        Player currentPlayer; 
         if(this.currentTurn ==1)
         {
-            this.winner=this.player1; 
+            currentPlayer=this.player1; 
         }
         else
         {
-            this.winner=this.player2;
+            currentPlayer=this.player2;
+        }
+        //iterates through player's animals to check their positions 
+        for(Animal animal :currentPlayer.getAnimals())
+        {
+            Space currentSpace =animal.getCurrentSpace(); 
+
+            //check if the space isEnemyDen
+            if(currentSpace.isEnemyDen(this.currentTurn))
+            {
+                this.winner = currentPlayer; 
+                this.isGameOver = true; 
+                Syatem.out.println("Player " + this.currentTurn + "has won!"); 
+            }
         }
         //update isGameover to true
-        this.isGameOver = true; 
+       
     }
     /**
     *Returns the current player 
