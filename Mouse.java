@@ -13,7 +13,7 @@ public class Mouse extends Animal
         super("Mouse", 1, position);
     }
 
-    public boolean canEnterRiver()
+    public boolean canMove()
     {
         return true;
     }
