@@ -114,7 +114,7 @@ public class Board
         // Update the animal's position
         animal.updatePosition(target, newRow, newCol);
     }
-    /**  
+   /**  
     * Calculates the coordinates the animal intends to move to, checks if move is valis 
     * and moves the animal 
     * @param animal the animal that is to be moved 
@@ -126,29 +126,37 @@ public class Board
         int r = animal.getRow();
         int c= animal.getCol(); 
         
-         if(direction == 'U')
-        {
-            r--;
-        }
-        else if(direction == 'D')
-        {
-            r++;
-        }
-        else if(direction == 'L')
-        {
-            c--;
-        }
-        else if(direction == 'R')
-        {
-            c++;
-        }
-
-        Space target = getSpace(r, c); 
-
-        if (isValidMove(animal,target))
-        {
-            performMove(animal, target, r,c); 
-        }
+    	if(animal instanceof BigCat)
+    	{
+           while( 
+    	}
+    	else
+    	{
+        	if(direction == 'U')
+                {
+                    r--;
+                }
+                else if(direction == 'D')
+                {
+                    r++;
+                }
+                else if(direction == 'L')
+                {
+                    c--;
+                }
+                else if(direction == 'R')
+                {
+                    c++;
+                }
+        
+                Space target = getSpace(r, c); 
+        
+                if (isValidMove(animal,target))
+                {
+                    performMove(animal, target, r,c); 
+                }
+    	}
+         
         
     }
    
