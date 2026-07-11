@@ -8,9 +8,10 @@ public class Driver
 
         // Instantiate the main game controller
         Game game = new Game(player1, player2);
+        System.out.println("=== Animal Chess ===");
         System.out.println("Game initialized successfully!");
 
-        // simple test check for first pick using the players' animals
+        // Test first player selection
         System.out.println("\n--- Testing First Turn Selection ---");
         if (!player1.getAnimals().isEmpty() && !player2.getAnimals().isEmpty()) 
         {
@@ -30,6 +31,14 @@ public class Driver
         // run a quick win condition check
         System.out.println("\n--- Checking Win Conditions ---");
         game.checkWin();
-        System.out.println("Is the game currently over? " + (game.getWinner() != null));
+        
+        if (game.getWinner() != null)
+        {
+            System.out.println("Winner: Player " + game.getWinner().getPlayerNum());
+        }
+        else
+        {
+            System.out.println("No winner yet.");
+        }
     }
 }
