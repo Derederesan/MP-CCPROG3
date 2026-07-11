@@ -21,6 +21,7 @@ public class Board
     {
         this.board = new Space[ROWS][COLS];
         initializeBoard();
+        initializeAnimals();
     }
 
     /**
@@ -58,7 +59,39 @@ public class Board
             }
         }
     }
-
+    /*
+    *Initializes the animals onto the board 
+    */
+    public void initializeAnimals()
+    {
+        //initialize player one's animals(left side of board)
+        addAnimal("Tiger", Animal.TIGER, 0,0,1); 
+        addAnimal("Elephant", Animal.ELEPHANT, 0,2,1); 
+        addAnimal("Cat", Animal.CAT, 1,1,1); 
+        addAnimal("Wolf", Animal.WOLF, 2,2,1); 
+        addAnimal("Leopard", Animal.LEOPARD, 4,2,1); 
+        addAnimal("Dog", Animal.DOG, 5,1,1); 
+        addAnimal("Lion", Animal.LION, 6,0,1); 
+        addAnimal("Mouse", Animal.MOUSE, 0,0,1); 
+        //initialize player two's animals(right side of board)
+        addAnimal("Mouse", Animal.MOUSE, 0,6,2); 
+        addAnimal("Lion", Animal.LION, 0,8,2);
+        addAnimal("Dog", Animal.DOG, 1,7,2);
+        addAnimal("Leopard", Animal.LEOPARD, 2,6,2);
+        addAnimal("Wolf", Animal.WOLF, 4,6,2);
+        addAnimal("Cat", Animal.CAT, 5,7,2);
+        addAnimal("Elephant", Animal.ELEPHANT, 6,6,2);
+        addAnimal("Tiger", Animal.TIGER, 6,8,2);
+    }
+    /**
+    *used to add an animal to the board 
+    */
+    private void addAnimal(String name, int rank, int row, int col, int ownerId)
+    {
+        Space space = getSpace(row, col); 
+        Animal animal = new Animal(name, rank, space, ownerId, col, row); 
+        space.setAnimal(animal); 
+    }
     /**
     * Retrieves the space according to the parameters 
     * @param row the specified row 
