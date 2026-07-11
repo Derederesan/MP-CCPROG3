@@ -20,7 +20,7 @@ public class Game
     {
         this.player1 = player1; 
         this.player2 = player2;
-        this.board = new Board; 
+        this.board = new Board(); 
         this.isGameOver = false; 
         this.winner = null; 
     }
