@@ -107,4 +107,14 @@ public class Board
         //update animal's position
         animal.setPosition(target); 
     }
+    /**
+    * Calculates the target space based on given direction 
+    * @param animal The animal attempting to move 
+    * @param direction The chosen direction; 'U','D','L','R'
+    * @return The row and column of the space 
+    */
+    public Space getSpaceDirection(Animal animal, char direction)
+    {
+        int currentPosition = animal.getCurrentSpace().
+    }
 }
