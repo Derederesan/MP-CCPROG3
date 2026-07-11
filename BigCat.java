@@ -3,7 +3,7 @@
     * whether it can jump over the river and move to the land across it. 
     */
 
-public class BigCat extends Animal
+public abstract class BigCat extends Animal
 {
     /**
     *Constructs a new BigCat that takes the input and assigns it to its attributes 
