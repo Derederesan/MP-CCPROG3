@@ -6,16 +6,27 @@
 public class Mouse extends Animal
 {
    /**
-   *
+   * Constructs a new Mouse that takes the provided input 
+   * and assigns it to the attributes of the class 
    */
     public Mouse(Space position)
     {
         super("Mouse", 1, position);
     }
 
-    public boolean canMove()
+   /**
+   * Checks if Mouse can move to a specific position 
+   * @param position the space where mouse intends to move 
+   */
+    public boolean canMove(Space position)
     {
-        return true;
+       //if river can cross 
+       if (position.isRiver())
+       {
+          return true; 
+       }
+       //if not river, check if it can cross 
+        return super.canMove(position);
     }
 
     public boolean canCapture(Animal target)
