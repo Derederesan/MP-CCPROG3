@@ -36,22 +36,24 @@ public class Board
                 // Animal Dens
                 if((i == 0 && j == 3) || (i == 8 && j == 3))
                 {
-                    this.board[i][j] = new Space(Space.ANIMAL_DEN);
+                    int ownerId = (i == 0) ? 2 : 1;
+                    this.board[i][j] = new Space(Space.ANIMAL_DEN, ownerId);
                 }
                 // Traps around dens
                 else if(((i == 0 || i == 8) && (j == 2 || j == 4)) || ((i == 1 || i == 7) && j == 3))
                 {
-                    this.board[i][j] = new Space(Space.TRAP);
+                    int ownerId = (i <= 1) ? 2 : 1;
+                    this.board[i][j] = new Space(Space.TRAP, ownerId);
                 }
                 // River blocks
                 else if((i >= 3 && i <= 5) && (j == 1 || j == 2 || j == 4 || j == 5))
                 {
-                    this.board[i][j] = new Space(Space.RIVER);
+                    this.board[i][j] = new Space(Space.RIVER, 0);
                 }
                 // Regular Land
                 else
                 {
-                    this.board[i][j] = new Space(Space.LAND);
+                    this.board[i][j] = new Space(Space.LAND, 0);
                 }
             }
         }
