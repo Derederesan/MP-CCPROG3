@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Driver
 {
     public static void main(String[] args)
@@ -8,7 +9,11 @@ public class Driver
 
         // Create the game
         Game game = new Game(player1, player2);
-
+        
+        // Covered and shuffled set
+        ArrayList<Integer> shuffled = game.shuffleRanks();
+        System.out.println("Covered and shuffled set: " + shuffled);
+        
         System.out.println("=== Animal Chess ===");
         System.out.println("Game initialized successfully!");
 
