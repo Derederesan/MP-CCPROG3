@@ -72,16 +72,17 @@ public class Board
         addAnimal("Leopard", Animal.LEOPARD, 4,2,1); 
         addAnimal("Dog", Animal.DOG, 5,1,1); 
         addAnimal("Lion", Animal.LION, 6,0,1); 
-        addAnimal("Mouse", Animal.MOUSE, 0,0,1); 
+        addAnimal("Mouse", Animal.MOUSE, 2,0,1);
+
         //initialize player two's animals(right side of board)
         addAnimal("Mouse", Animal.MOUSE, 0,6,2); 
-        addAnimal("Lion", Animal.LION, 0,8,2);
-        addAnimal("Dog", Animal.DOG, 1,7,2);
+        addAnimal("Lion", Animal.LION, 8,6,2);
+        addAnimal("Dog", Animal.DOG, 5,6,2);
         addAnimal("Leopard", Animal.LEOPARD, 2,6,2);
         addAnimal("Wolf", Animal.WOLF, 4,6,2);
-        addAnimal("Cat", Animal.CAT, 5,7,2);
+        addAnimal("Cat", Animal.CAT, 7,5,2);
         addAnimal("Elephant", Animal.ELEPHANT, 6,6,2);
-        addAnimal("Tiger", Animal.TIGER, 6,8,2);
+        addAnimal("Tiger", Animal.TIGER, 8,0,2);
     }
     /**
     *used to add an animal to the board 
