@@ -18,18 +18,22 @@ public class Animal
     private final int RANK; 
     private Space currentSpace; 
     private int ownerId; 
+    private int col; 
+    private int row; 
 
     /**
     *  Constructs a new Animal that takes the input provided 
     * and assigns it to the specified attributes of the class.
     */
 
-    public Animal(String name, int rank, Space position, int ownerId)
+    public Animal(String name, int rank, Space position, int ownerId, int col, int row)
     {
         this.name= name; 
         this.RANK = rank; 
         this.currentSpace = position;  
         this.ownerId = ownerId; 
+        this.col =col; 
+        this.row =row; 
     }
 
     /**
@@ -60,7 +64,23 @@ public class Animal
     {
         return this.currentSpace;
     }
-
+    /**
+    *Retrieves the current row the animal is on 
+    *@return the animal's current row 
+    */
+    public int getRow()
+    {
+        return this.row; 
+    }
+    /**
+    *Retrieves the current column the animal is on 
+    *@return the animal's current column 
+    */
+    public int getCol()
+    {
+        return this.col;
+    }
+    
     /**
     *  Checks if the animal can move to a certain position on the board  
     * @return true if and only if it is not moving to a river and is not 
@@ -83,12 +103,21 @@ public class Animal
     }
     /**
     * Sets the new position of the animal 
-    * @param newSpace the new posiion of the animal 
+    * @param row the animal's new row 
+    * @param col the animal's new column 
     */
-    public void setPosition(Space newSpace)
+    public void setPosition(int row, int col)
     {
-        this.currentSpace = newSpace; 
+        this.row = row;
+        this.col =col; 
     }
+
+    /**
+    *Sets the new space of the animal 
+    * @param newSpace the animal's new Space 
+    */
+    public void setSpace(newSpace)
+    
     /**
      * Checks if the attacker can capture the intended target 
      * @param attacker the animal that the current player has chosen 
