@@ -143,7 +143,7 @@ public class Board
 
         Space target = getSpace(r, c); 
 
-        if (isValidMove(animal,target)
+        if (isValidMove(animal,target))
         {
             performMove(animal, target, r,c); 
         }
