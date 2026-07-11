@@ -3,6 +3,9 @@
  * serves as the checker on which players should go first, and checks if a player has won. 
  */
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Game {
     private int currentTurn = -1;
     private Player player1;
@@ -31,6 +34,20 @@ public class Game {
      * @param p2Choice the chosen animal piece of player 2
      * @return the player that goes first
      */
+
+    public ArrayList<Integer> shuffleRanks()
+    {
+    ArrayList<Integer> ranks = new ArrayList<>();
+
+    for (int i = 1; i <= 8; i++)
+    {
+        ranks.add(i);
+    }
+
+    Collections.shuffle(ranks);
+
+    return ranks;
+    }
     public int firstPick(Animal p1Choice, Animal p2Choice) {
         if (p1Choice.getRank() > p2Choice.getRank()) {
             System.out.println("Player 1 moves first.");
