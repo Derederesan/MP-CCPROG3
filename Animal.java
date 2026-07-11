@@ -80,9 +80,17 @@ public class Animal
     {
         return this.col;
     }
-    
     /**
-    *  Checks if the animal can move to a certain position on the board  
+    *Retrieves the owner Id of the animal 
+    *@return the animal's ownerId 
+    */
+    public int getOwnerId()
+    {
+        return this.ownerId;
+    }
+    /**
+    * Checks if the animal can move to a certain position on the board  
+    * @param position the intended space the animal wishes to move to 
     * @return true if and only if it is not moving to a river and is not 
     * moving to its own den 
     */
@@ -127,6 +135,11 @@ public class Animal
         if(target.getCurrentSpace().isTrap())
         {
             return true; 
+        }
+        //if attacker is an elephant and it wishes to capture a mouse 
+        if((attacker.getRank()==8) && (target.getRank()==1))
+        {
+            return false;
         }
         //if not, check if attacker is equal or higher rank than target 
         return attacker.getRank()>=target.getRank(); 
