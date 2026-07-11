@@ -102,22 +102,18 @@ public class Animal
         return true; 
     }
     /**
-    * Sets the new position of the animal 
+    * Sets the new position and space of the animal 
     * @param row the animal's new row 
     * @param col the animal's new column 
+    * @param newSpace the animal's new Space 
     */
-    public void setPosition(int row, int col)
+    public void updatePosition(Space newSpace, int row, int col)
     {
         this.row = row;
         this.col =col; 
+         this.currentSpace = newSpace; 
     }
 
-    /**
-    *Sets the new space of the animal 
-    * @param newSpace the animal's new Space 
-    */
-    public void setSpace(newSpace)
-    
     /**
      * Checks if the attacker can capture the intended target 
      * @param attacker the animal that the current player has chosen 
@@ -134,8 +130,5 @@ public class Animal
         }
         //if not, check if attacker is equal or higher rank than target 
         return attacker.getRank()>=target.getRank(); 
-    }
-
-    return false; 
     }
 }
