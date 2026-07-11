@@ -37,7 +37,7 @@ public class Player
     
     public void setMove(char movement)
     {
-        this.movement = movement; 
+        this.move = movement; 
     }
 
     /**
