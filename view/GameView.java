@@ -18,6 +18,9 @@ public class GameView extends JFrame
     /* displays the current game status */
     private JLabel statusLabel;
 
+    /* stores references to every button on the game board */
+    private JButton[][] boardButtons;
+
     /**
      * creates the main game window and initializes
      * the basic GUI components.
@@ -37,16 +40,40 @@ public class GameView extends JFrame
         add(statusLabel, BorderLayout.NORTH);
 
         boardPanel = new JPanel(new GridLayout(9, 7));
+        boardButtons = new JButton[9][7];
 
-        // temporary board placeholders
-        // these buttons will later be replaced w/ actual board tiles and animal pieces
-        for (int i = 0; i < 63; i++)
+        for (int row = 0; row < 9; row++)
         {
-            boardPanel.add(new JButton());
+            for (int col = 0; col < 7; col++)
+            {
+                boardButtons[row][col] = new JButton();
+                boardPanel.add(boardButtons[row][col]);
+            }
         }
 
         add(boardPanel, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    public JButton getBoardButton(int row, int col)
+    {
+        return boardButtons[row][col];
+    }
+
+    public JButton[][] getBoardButtons()
+    {
+        return boardButtons;
+    }
+
+    public void updateStatus(String text)
+    {
+        statusLabel.setText(text);
+    }
+
+    public void refreshBoard()
+    {
+        boardPanel.revalidate();
+        boardPanel.repaint();
     }
 }
