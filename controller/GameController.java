@@ -6,7 +6,7 @@ package controller;
 public class GameController implements KeyListener{
     private Game model; 
     private GameView view; 
-
+    private Animal selectedAnimal = null;
     public GameController(Game model, GameView view)
     {
       this.model = model; 
@@ -22,23 +22,27 @@ public class GameController implements KeyListener{
       {
         case 'L':
         case 'l':
-          model.getBoard().
+          model.getBoard().moveAnimal(selectedAnimal, 'L');
           break;
         case 'R':
         case 'r':
+           model.getBoard().moveAnimal(selectedAnimal, 'R');
           break;
         case 'U':
         case 'u':
+           model.getBoard().moveAnimal(selectedAnimal, 'U');
           break;
         case 'D':
         case 'd':
+           model.getBoard().moveAnimal(selectedAnimal, 'D');
           break; 
         default:
           System.out.println("Invalid input!"); 
       }
       model.updateTurn();
       model.checkWin();
-      
+      selectedAnimal = null;
+
     }
 
     @Override
