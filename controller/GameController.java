@@ -22,7 +22,7 @@ public class GameController implements KeyListener{
       {
         case 'L':
         case 'l':
-
+          model.getBoard().
           break;
         case 'R':
         case 'r':
