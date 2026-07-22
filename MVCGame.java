@@ -4,6 +4,6 @@ public class MVCGame
     {
         GameView view = new GameView(); 
         Game model = new Game(); 
-        GameController = new GameController();
+        GameController = new GameController(model,view);
     }
 }
