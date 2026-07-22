@@ -122,4 +122,8 @@ public class Game {
         return this.winner;
     }
 
+    public Board getBoard(){
+        return this.board;
+    }
+
 }
