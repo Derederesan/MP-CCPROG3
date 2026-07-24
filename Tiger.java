@@ -1,3 +1,5 @@
+package model;
+
 /**
     * The subclass of the abstract superclass BigCat 
     */
