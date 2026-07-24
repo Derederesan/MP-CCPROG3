@@ -43,7 +43,7 @@ public class GameView extends JFrame
         setLayout(new BorderLayout());
 
         statusLabel = new JLabel("Animal Chess", SwingConstants.CENTER);
-        statusLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 28));
         statusLabel.setForeground(new Color(70, 40, 20));
         add(statusLabel, BorderLayout.NORTH);
 
@@ -56,8 +56,10 @@ public class GameView extends JFrame
             for (int col = 0; col < 7; col++)
             {
                 boardButtons[row][col] = new JButton();
-                boardButtons[row][col].setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
+                boardButtons[row][col].setFont(new Font("Dialog", Font.BOLD, 15));
                 boardButtons[row][col].setFocusPainted(false);
+                boardButtons[row][col].setHorizontalAlignment(SwingConstants.CENTER);
+                boardButtons[row][col].setVerticalAlignment(SwingConstants.CENTER);
                 boardButtons[row][col].setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210)));
                 boardButtons[row][col].setBackground(Color.WHITE);
                 boardButtons[row][col].setOpaque(true);
@@ -84,7 +86,7 @@ public class GameView extends JFrame
         player1Label.setFont(new Font("Arial", Font.BOLD, 18));
         player1Label.setForeground(new Color(40,90,220));
 
-        instructionLabel = new JLabel("Select an animal and use U / D / L / R", SwingConstants.CENTER);
+        instructionLabel = new JLabel("Select an animal, then enter L / R / U / D", SwingConstants.CENTER);
         instructionLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
         player2Label = new JLabel("PLAYER 2", SwingConstants.CENTER);
@@ -134,11 +136,10 @@ public class GameView extends JFrame
         }
     }
 
-
     /**
      * refreshes the game board and updates button labels based on the game model state.
      *
-     * @param model the current game modelx
+     * @param model the current game model
      */
     public void refreshBoard(Game model)
     {
@@ -156,38 +157,37 @@ public class GameView extends JFrame
                     }
                     else
                     {
-                        // Displays animal's full name (e.g. "Tiger (P1)")
-                        String icon = "";
-
+                        String piece = animal.getName();
                         switch (animal.getName())
                         {
                             case "Tiger":
-                                icon = "🐯";
+                                piece = "🐯 Tiger";
                                 break;
                             case "Lion":
-                                icon = "🦁";
+                                piece = "🦁 Lion";
                                 break;
                             case "Elephant":
-                                icon = "🐘";
+                                piece = "🐘 Elephant";
                                 break;
                             case "Mouse":
-                                icon = "🐭";
+                                piece = "🐭 Mouse";
                                 break;
                             case "Cat":
-                                icon = "🐱";
+                                piece = "🐱 Cat";
                                 break;
                             case "Dog":
-                                icon = "🐶";
+                                piece = "🐶 Dog";
                                 break;
                             case "Wolf":
-                                icon = "🐺";
+                                piece = "🐺 Wolf";
                                 break;
                             case "Leopard":
-                                icon = "🐆";
+                                piece = "🐆 Leopard";
                                 break;
                         }
 
-                        boardButtons[r][c].setText(icon);
+                        boardButtons[r][c].setText(piece);
+
                         if (animal.getOwnerId() == 1)
                         {
                             boardButtons[r][c].setForeground(new Color(30, 90, 210)); // blue
