@@ -1,3 +1,5 @@
+package model;
+
 /**
 * A Space allows the initialization of a space on the board, keeping track of whether 
 * it has an animal on it and who owns it. It can create any of the four spaces: land, animal den, trap or river. 
