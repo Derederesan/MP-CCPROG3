@@ -1,3 +1,5 @@
+package model;
+
 /**
 * An Animal allows the initialization of an animal as well as the rules of its movement. It 
 * has getter methods for its name, rank and currentspace. It can also check if it can move 
