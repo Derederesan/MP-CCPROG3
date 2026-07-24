@@ -5,8 +5,8 @@ import javax.swing.*;
 
 /**
  * THIS displays the graphical user interface of the Animal Chess game.
- * it is responsible only for displaying the GUI components
  * serves as the View in the MVC architecture.
+ * it is responsible only for displaying the GUI components
  */
 
 public class GameView extends JFrame
@@ -22,8 +22,8 @@ public class GameView extends JFrame
     private JButton[][] boardButtons;
 
     /**
+     * the basic GUI components
      * creates the main game window and initializes
-     * the basic GUI components.
      */
 
     public GameView()
@@ -56,50 +56,44 @@ public class GameView extends JFrame
         setVisible(true);
     }
 
+    /*
+     * returns the button at the specified board position.
+     *
+     * @param row row index
+     * @param col column index
+     * @return the button at the given position
+     */
     public JButton getBoardButton(int row, int col)
     {
         return boardButtons[row][col];
     }
 
+    /* returns all board buttons */
     public JButton[][] getBoardButtons()
     {
         return boardButtons;
     }
 
-    /**
-     * updates the current status message displayed in the GUI.
-     *
-     * @param text the status message
-     */
+    /* updates the status label */
     public void updateStatus(String text)
     {
         statusLabel.setText(text);
     }
 
-    /**
-     * this refreshes the board after (any) visual changes.
-     */
+    /* refreshes the game board */
     public void refreshBoard()
     {
         boardPanel.revalidate();
         boardPanel.repaint();
     }
 
-    /**
-     * returns the status label.
-     *
-     * @return the status label
-     */
+    /* returns the status label */
     public JLabel getStatusLabel()
     {
         return statusLabel;
     }
 
-    /**
-     * returns the panel containing the game board.
-     *
-     * @return the board panel
-     */
+    /* returns the game board panel */
     public JPanel getBoardPanel()
     {
         return boardPanel;
