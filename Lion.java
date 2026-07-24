@@ -1,3 +1,5 @@
+package model;
+
 /**
 * A lion is the subclass of the abstract superclass BigCat 
 */
