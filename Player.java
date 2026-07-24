@@ -1,3 +1,5 @@
+package model;
+
 /**
     *  A Player controls the movement of the animal on the board, as well as sets the color of animals. 
 */
