@@ -66,14 +66,53 @@ public class GameView extends JFrame
         return boardButtons;
     }
 
+    /**
+     * updates the current status message displayed in the GUI.
+     *
+     * @param text the status message
+     */
     public void updateStatus(String text)
     {
         statusLabel.setText(text);
     }
 
+    /**
+     * this refreshes the board after (any) visual changes.
+     */
     public void refreshBoard()
     {
         boardPanel.revalidate();
         boardPanel.repaint();
+    }
+
+    /**
+     * returns the status label.
+     *
+     * @return the status label
+     */
+    public JLabel getStatusLabel()
+    {
+        return statusLabel;
+    }
+
+    /**
+     * returns the panel containing the game board.
+     *
+     * @return the board panel
+     */
+    public JPanel getBoardPanel()
+    {
+        return boardPanel;
+    }
+
+    /**
+     * displays a message dialog to the user
+     *
+     * @param message the message to display
+     */
+    public void showMessage(String message)
+    
+    {
+    JOptionPane.showMessageDialog(this, message);
     }
 }
