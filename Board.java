@@ -1,3 +1,5 @@
+package model;
+
 /**
 * A Board allows the initialization of the board, adding the spaces and the animals accordingly.
 * Aside from this, the Board can also check if an animal's movement is valid before updating its 
