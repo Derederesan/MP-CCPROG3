@@ -34,6 +34,7 @@ public class GameController implements KeyListener
 
         this.view.addKeyListener(this);
         this.view.setFocusable(true);
+        this.view.requestFocusInWindow();
     }
 
     /**
@@ -74,7 +75,7 @@ public class GameController implements KeyListener
                 break;
 
             default:
-                System.out.println("Invalid input!");
+                view.showMessage("Invalid input!");
                 return;
         }
 
