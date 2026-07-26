@@ -38,9 +38,9 @@ public class GameController implements KeyListener, ActionListener
         this.view.setFocusable(true);
 
         JButton[][] buttons = this.view.getBoardButtons();
-        for (int r = 0; r < 9; r++)
+        for (int r = 0; r < 7; r++)
         {
-            for (int c = 0; c < 7; c++)
+            for (int c = 0; c < 9; c++)
             {
                 buttons[r][c].addActionListener(this);
             }
