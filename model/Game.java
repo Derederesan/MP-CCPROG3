@@ -50,17 +50,18 @@ public class Game {
 
     return ranks;
     }
+
     public int firstPick(Animal p1Choice, Animal p2Choice) {
         if (p1Choice.getRank() > p2Choice.getRank()) {
-            System.out.println("Player 1 moves first.");
+            //System.out.println("Player 1 moves first.");
             this.currentTurn = 1;
             return 1;
         } else if (p1Choice.getRank() < p2Choice.getRank()) {
-            System.out.println("Player 2 moves first.");
+            //System.out.println("Player 2 moves first.");
             this.currentTurn = 2;
             return 2;
         } else {
-            System.out.println("Tie! Players must pick again.");
+            //System.out.println("Tie! Players must pick again.");
             return -1;
         }
     }
