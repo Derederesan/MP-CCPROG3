@@ -19,5 +19,6 @@ public class MVCGame
 
         /* connects the model and view through the controller */
         GameController controller = new GameController(model,view);
+        view.refreshBoard(model);
     }
 }
