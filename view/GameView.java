@@ -101,6 +101,7 @@ public class GameView extends JFrame
         setVisible(true);
     }
 
+    
     /**
      * returns the button at the specified board position.
      *
@@ -118,7 +119,6 @@ public class GameView extends JFrame
     {
         return boardButtons;
     }
-
     /* updates the status label */
     public void updateStatus(String text)
     {
@@ -143,6 +143,11 @@ public class GameView extends JFrame
      */
     public void refreshBoard(Game model)
     {
+        if(model.getCurrentTurn()==-1)
+        {
+            updateStatus("Player 1, pick an animal.");
+        }
+        
         for (int r = 0; r < 7; r++)
         {
             for (int c = 0; c < 9; c++)
