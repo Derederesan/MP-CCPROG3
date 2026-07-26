@@ -47,13 +47,13 @@ public class GameView extends JFrame
         statusLabel.setForeground(new Color(70, 40, 20));
         add(statusLabel, BorderLayout.NORTH);
 
-        boardPanel = new JPanel(new GridLayout(9, 7, 4, 4));
+        boardPanel = new JPanel(new GridLayout(7, 9, 4, 4));
         boardPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-        boardButtons = new JButton[9][7];
+        boardButtons = new JButton[7][9];
 
-        for (int row = 0; row < 9; row++)
+        for (int row = 0; row < 7; row++)
         {
-            for (int col = 0; col < 7; col++)
+            for (int col = 0; col < 9; col++)
             {
                 boardButtons[row][col] = new JButton();
                 boardButtons[row][col].setFont(new Font("Dialog", Font.BOLD, 15));
@@ -143,9 +143,9 @@ public class GameView extends JFrame
      */
     public void refreshBoard(Game model)
     {
-        for (int r = 0; r < 9; r++)
+        for (int r = 0; r < 7; r++)
         {
-            for (int c = 0; c < 7; c++)
+            for (int c = 0; c < 9; c++)
             {
                 Space space = model.getBoard().getSpace(r, c);
                 if (space != null)
@@ -153,7 +153,20 @@ public class GameView extends JFrame
                     Animal animal = space.getAnimal();
                     if (animal == null)
                     {
-                        boardButtons[r][c].setText("");
+
+                        if(space.isAnimalDen())
+                        {
+                             boardButtons[r][c].setText("🏘️ Den");
+                        }
+                        else if(space.isTrap())
+                        {
+                            boardButtons[r][c].setText("🕸️ Trap");
+                            
+                        }
+                        else if(space.isRiver())
+                        {
+                            boardButtons[r][c].setText("🌊 River");
+                        }
                     }
                     else
                     {
@@ -196,7 +209,11 @@ public class GameView extends JFrame
                         {
                             boardButtons[r][c].setForeground(new Color(210, 60, 60)); // red
                         }
+                        
+                        
                     }
+
+                    
                 }
             }
         }
