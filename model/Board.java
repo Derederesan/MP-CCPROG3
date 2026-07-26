@@ -11,8 +11,8 @@ import java.util.*;
 public class Board 
 {
     private Space[][] board; 
-    public static final int ROWS = 9; 
-    public static final int COLS = 7; 
+    public static final int ROWS = 7; 
+    public static final int COLS = 9; 
 
     /**
     *  Constructs a new Board that takes the input provided 
@@ -37,19 +37,19 @@ public class Board
             for(int j = 0; j < COLS; j++)
             {
                 // Animal Dens
-                if((i == 0 && j == 3) || (i == 8 && j == 3))
+                if((i == 3 && j == 0) || (j == 8 && i == 3))
                 {
                     int ownerId = (i == 0) ? 2 : 1;
                     this.board[i][j] = new Space(Space.ANIMAL_DEN, ownerId);
                 }
                 // Traps around dens
-                else if(((i == 0 || i == 8) && (j == 2 || j == 4)) || ((i == 1 || i == 7) && j == 3))
+                else if(((i == 2 || i == 4) && (j == 0 || j ==8)) || ((i == 3) && (j == 1||j==7)))
                 {
                     int ownerId = (i <= 1) ? 2 : 1;
                     this.board[i][j] = new Space(Space.TRAP, ownerId);
                 }
                 // River blocks
-                else if((i >= 3 && i <= 5) && (j == 1 || j == 2 || j == 4 || j == 5))
+                else if((j >= 3 && j <= 5) && (i == 1 || i == 2 || i == 4 || i == 5))
                 {
                     this.board[i][j] = new Space(Space.RIVER, 0);
                 }
@@ -74,17 +74,18 @@ public class Board
         addAnimal("Leopard", Animal.LEOPARD, 4,2,1); 
         addAnimal("Dog", Animal.DOG, 5,1,1); 
         addAnimal("Lion", Animal.LION, 6,0,1); 
-        addAnimal("Mouse", Animal.MOUSE, 2,0,1);
+        addAnimal("Mouse", Animal.MOUSE, 6,2,1);
 
         //initialize player two's animals(right side of board)
         addAnimal("Mouse", Animal.MOUSE, 0,6,2); 
-        addAnimal("Lion", Animal.LION, 8,6,2);
-        addAnimal("Dog", Animal.DOG, 5,6,2);
+        addAnimal("Lion", Animal.LION, 0,8,2);
+        addAnimal("Dog", Animal.DOG, 1,7,2);
         addAnimal("Leopard", Animal.LEOPARD, 2,6,2);
         addAnimal("Wolf", Animal.WOLF, 4,6,2);
-        addAnimal("Cat", Animal.CAT, 7,5,2);
+        addAnimal("Cat", Animal.CAT, 5,7,2);
         addAnimal("Elephant", Animal.ELEPHANT, 6,6,2);
-        addAnimal("Tiger", Animal.TIGER, 8,0,2);
+        addAnimal("Tiger", Animal.TIGER, 6,8,2);
+
     }
     /**
     *used to add an animal to the board 
