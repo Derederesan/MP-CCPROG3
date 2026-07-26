@@ -23,6 +23,10 @@ public class GameController implements KeyListener, ActionListener
     /* keeps track of the currently selected animal */
     private Animal selectedAnimal = null;
 
+    // first pick of both player 1 and player 2 
+    private Animal p1Pick = null; 
+    private Animal p2Pick = null; 
+
     /**
      * it creates a controller and connects the model with the view
      *
@@ -47,6 +51,41 @@ public class GameController implements KeyListener, ActionListener
         }
     }
 
+    public void handleInitialPick(Animal clickedAnimal)
+    {
+        if(p1Pick == null)
+        {
+            if(clickedAnimal.getOwnerId()==1)
+            {
+                p1Pick = clickedAnimal; 
+                view.updateStatus("Player 1 picked " + p1Pick.getName()+". Player 2, pick an animal.");
+            }
+            else
+            {
+                view.updateStatus("Invalid! Pick your own animal!(blue)");
+            }
+        }
+        else if(p2Pick == null) 
+        {
+            if(clickedAnimal.getOwnerId()==2)
+            {
+                p2Pick = clickedAnimal; 
+                view.updateStatus("Player 2 picked " + p2Pick.getName());
+                model.firstPick(p1Pick,p2Pick); 
+                if(model.getCurrentTurn()==1)
+                    view.updateStatus("Player 1 moves first."); 
+                else if(model.getCurrentTurn()==2)
+                    view.updateStatus("Player 2 moves first.");
+                else if(model.getCurrentTurn()==-1)
+                    view.updateStatus("Tie! Players must pick again.");
+            }
+            else
+            {
+                view.updateStatus("Invalid! Pick your own animal!(red)");
+            }
+        }
+        
+    }
     /**
      * handles piece selection when a board button is clicked.
      *
@@ -57,25 +96,31 @@ public class GameController implements KeyListener, ActionListener
     {
         JButton[][] buttons = view.getBoardButtons();
 
-        for (int r = 0; r < 9; r++)
+        for (int r = 0; r < 7; r++)
         {
-            for (int c = 0; c < 7; c++)
+            for (int c = 0; c < 9; c++)
             {
                 if (e.getSource() == buttons[r][c])
                 {
                     Space space = model.getBoard().getSpace(r, c);
                     if (space != null)
                     {
+                        
                         Animal clickedAnimal = space.getAnimal();
+                
 
                         if (clickedAnimal != null)
                         {
-                            if (model.getCurrentTurn() != -1 && clickedAnimal.getOwnerId() != model.getCurrentTurn())
+                            if(model.getCurrentTurn()==-1)
+                            {
+                                    handleInitialPick(clickedAnimal); 
+                            }
+                            else if (model.getCurrentTurn() != -1 && clickedAnimal.getOwnerId() != model.getCurrentTurn())
                             {
                                 view.updateStatus("That's not your animal!");
                                 selectedAnimal = null;
                             }
-                            else
+                            else if(model.getCurrentTurn()!=-1)
                             {
                                 selectedAnimal = clickedAnimal;
                                 view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to move.");
@@ -104,32 +149,50 @@ public class GameController implements KeyListener, ActionListener
     @Override
     public void keyTyped(KeyEvent a)
     {
+        if(model.getCurrentTurn()==-1)
+        {
+            view.updateStatus("Please complete animal selection first!"); 
+            return; 
+        }
         if (selectedAnimal == null)
         {
             view.updateStatus("Select an animal first.");
             return;
         }
-
+        int r = selectedAnimal.getRow();
+        int c = selectedAnimal.getCol();
         switch (a.getKeyChar())
         {
+            
             case 'L':
             case 'l':
+                
+                view.getBoardButton(r,c).setText("");
                 model.getBoard().moveAnimal(selectedAnimal, 'L');
                 break;
 
             case 'R':
             case 'r':
+                
+                view.getBoardButton(r,c).setText("");
                 model.getBoard().moveAnimal(selectedAnimal, 'R');
+       
                 break;
 
             case 'U':
             case 'u':
+                
+                view.getBoardButton(r,c).setText("");
                 model.getBoard().moveAnimal(selectedAnimal, 'U');
+        
                 break;
 
             case 'D':
             case 'd':
+                
+                view.getBoardButton(r,c).setText("");
                 model.getBoard().moveAnimal(selectedAnimal, 'D');
+                
                 break;
 
             default:
@@ -171,4 +234,5 @@ public class GameController implements KeyListener, ActionListener
     {
         // intentionally left empty
     }
+
 }
