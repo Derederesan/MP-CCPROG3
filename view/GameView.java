@@ -152,6 +152,10 @@ public class GameView extends JFrame
         {
             for (int c = 0; c < 9; c++)
             {
+                // removes selection highlight after the board refreshes.
+                boardButtons[r][c].setBorder(
+                    BorderFactory.createLineBorder(new Color(210, 210, 210))
+                );
                 Space space = model.getBoard().getSpace(r, c);
                 if (space != null)
                 {
