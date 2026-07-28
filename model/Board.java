@@ -157,7 +157,7 @@ public class Board
     * @param animal the animal that is to be moved 
     * @param direction the direction the animal intends to move 
     */
-    public void moveAnimal(Animal animal, char direction) 
+    public String moveAnimal(Animal animal, char direction) 
     {
         int r = animal.getRow();
         int c = animal.getCol();
@@ -180,20 +180,33 @@ public class Board
     
         Space target = getSpace(r, c);
     
-        if (isValidMove(animal, target)) {
-            // Consolidated Capture and Move Logic
-            if (target.getAnimal() != null) {
+        if (isValidMove(animal, target))
+        {
+            if (target.getAnimal() != null)
+            {
                 Animal victim = target.getAnimal();
-                if (animal.canCapture(victim)) {
+                
+                if (animal.canCapture(victim))
+                {
+                    String victimName = victim.getName();
+                    
                     target.setAnimal(null);
                     performMove(animal, target, r, c);
-                } else {
-                    System.out.println("Unable to capture animal!");
+                    
+                    return animal.getName() + " captured " + victimName + "!";
                 }
-            } else {
-                performMove(animal, target, r, c);
+                else
+                {
+                    return "Unable to capture " + victim.getName() + "!";
+                }
             }
-        }
+            else
+            {
+                performMove(animal, target, r, c);
+                return animal.getName() + " moved.";
+            }
+            
+            return "Invalid move!";
     }
    
 }
