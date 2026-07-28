@@ -1,11 +1,13 @@
 package controller;
 
+import model.Game;
+import model.Space;
+import model.Animal;
+import view.GameView;
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.JButton;
-import model.Game;
-import model.Animal;
-import model.Space;
-import view.GameView;
+import javax.swing.BorderFactory;
 
 /**
  * THIS controls the interaction between the GameModel and the GameView.
@@ -105,7 +107,7 @@ public class GameController implements KeyListener, ActionListener
                     Space space = model.getBoard().getSpace(r, c);
                     if (space != null)
                     {
-                        
+                        selectedAnimal = clickedAnimal;
                         Animal clickedAnimal = space.getAnimal();
                 
 
@@ -122,8 +124,25 @@ public class GameController implements KeyListener, ActionListener
                             }
                             else if(model.getCurrentTurn()!=-1)
                             {
-                                selectedAnimal = clickedAnimal;
-                                view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to move.");
+                                // removes the old highlight first
+                                for (int row = 0; row < 9; row++)
+                                {
+                                    for (int col = 0; col < 7; col++)
+                                        {
+                                            buttons[row][col].setBorder(
+                                                BorderFactory.createLineBorder(new Color(210, 210, 210))
+                                            );
+                                        }
+                                }
+
+selectedAnimal = clickedAnimal;
+
+// highlights the selected animal
+buttons[r][c].setBorder(
+    BorderFactory.createLineBorder(new Color(255, 170, 0), 3)
+);
+
+view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to move.");
                             }
                         }
                         else
