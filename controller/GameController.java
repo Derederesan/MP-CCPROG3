@@ -180,6 +180,9 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
         }
         int r = selectedAnimal.getRow();
         int c = selectedAnimal.getCol();
+        
+        String moveMessage;
+        
         switch (a.getKeyChar())
         {
             
@@ -187,14 +190,14 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
             case 'l':
                 
                 view.getBoardButton(r,c).setText("");
-                model.getBoard().moveAnimal(selectedAnimal, 'L');
+                moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'L');
                 break;
 
             case 'R':
             case 'r':
                 
                 view.getBoardButton(r,c).setText("");
-                model.getBoard().moveAnimal(selectedAnimal, 'R');
+                moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'R');
        
                 break;
 
@@ -202,7 +205,7 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
             case 'u':
                 
                 view.getBoardButton(r,c).setText("");
-                model.getBoard().moveAnimal(selectedAnimal, 'U');
+                moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'U');
         
                 break;
 
@@ -210,7 +213,7 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
             case 'd':
                 
                 view.getBoardButton(r,c).setText("");
-                model.getBoard().moveAnimal(selectedAnimal, 'D');
+                moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'D');
                 
                 break;
 
@@ -219,18 +222,31 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
                 return;
         }
 
+        // if the move did not happen, the player's turn stays the same
+        if (moveMessage.equals("Invalid move!") ||
+            moveMessage.contains("cannot capture"))
+        
+        {
+            view.updateStatus(moveMessage + " Try again.");
+            view.refreshBoard(model);
+            view.requestFocusInWindow();
+            selectedAnimal = null;
+            return;
+        }
+        
+        // changes turn only after a successful move
         model.updateTurn();
         model.checkWin();
-
+        
         if (model.getWinner() != null)
         {
             view.showMessage("Player " + model.getWinner().getPlayerNum() + " wins!");
         }
         else
         {
-            view.updateStatus("Player " + model.getCurrentTurn() + "'s turn");
+            view.updateStatus(moveMessage + " Player " + model.getCurrentTurn() + "'s turn.");
         }
-
+        
         view.refreshBoard(model);
         view.requestFocusInWindow();
         selectedAnimal = null;
