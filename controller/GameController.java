@@ -13,7 +13,6 @@ import javax.swing.BorderFactory;
  * THIS controls the interaction between the GameModel and the GameView.
  * it receives the player's keyboard input & updates game accordingly.
  */
-
 public class GameController implements KeyListener, ActionListener
 {
     /* stores the game model */
@@ -25,9 +24,9 @@ public class GameController implements KeyListener, ActionListener
     /* keeps track of the currently selected animal */
     private Animal selectedAnimal = null;
 
-    // first pick of both player 1 and player 2 
-    private Animal p1Pick = null; 
-    private Animal p2Pick = null; 
+    /* first pick of both player 1 and player 2 */
+    private Animal p1Pick = null;
+    private Animal p2Pick = null;
 
     /**
      * it creates a controller and connects the model with the view
@@ -44,6 +43,7 @@ public class GameController implements KeyListener, ActionListener
         this.view.setFocusable(true);
 
         JButton[][] buttons = this.view.getBoardButtons();
+
         for (int r = 0; r < 7; r++)
         {
             for (int c = 0; c < 9; c++)
@@ -53,41 +53,61 @@ public class GameController implements KeyListener, ActionListener
         }
     }
 
+    /**
+     * handles the first animal pick of both players.
+     *
+     * @param clickedAnimal the animal selected by the player
+     */
     public void handleInitialPick(Animal clickedAnimal)
     {
-        if(p1Pick == null)
+        if (p1Pick == null)
         {
-            if(clickedAnimal.getOwnerId()==1)
+            if (clickedAnimal.getOwnerId() == 1)
             {
-                p1Pick = clickedAnimal; 
-                view.updateStatus("Player 1 picked " + p1Pick.getName()+". Player 2, pick an animal.");
+                p1Pick = clickedAnimal;
+                view.updateStatus("Player 1 picked " + p1Pick.getName()
+                        + ". Player 2, pick an animal.");
             }
             else
             {
-                view.updateStatus("Invalid! Pick your own animal!(blue)");
+                view.updateStatus("Invalid! Pick your own animal! (blue)");
             }
         }
-        else if(p2Pick == null) 
+        else if (p2Pick == null)
         {
-            if(clickedAnimal.getOwnerId()==2)
+            if (clickedAnimal.getOwnerId() == 2)
             {
-                p2Pick = clickedAnimal; 
+                p2Pick = clickedAnimal;
                 view.updateStatus("Player 2 picked " + p2Pick.getName());
-                model.firstPick(p1Pick,p2Pick); 
-                if(model.getCurrentTurn()==1)
-                    view.updateStatus("Player 1 moves first."); 
-                else if(model.getCurrentTurn()==2)
+
+                model.firstPick(p1Pick, p2Pick);
+
+                if (model.getCurrentTurn() == 1)
+                {
+                    view.updateStatus("Player 1 moves first.");
+                    view.highlightTurn(1);
+                }
+                else if (model.getCurrentTurn() == 2)
+                {
                     view.updateStatus("Player 2 moves first.");
-                else if(model.getCurrentTurn()==-1)
+                    view.highlightTurn(2);
+                }
+                else if (model.getCurrentTurn() == -1)
+                {
                     view.updateStatus("Tie! Players must pick again.");
+
+                    // reset both picks so they can choose again
+                    p1Pick = null;
+                    p2Pick = null;
+                }
             }
             else
             {
-                view.updateStatus("Invalid! Pick your own animal!(red)");
+                view.updateStatus("Invalid! Pick your own animal! (red)");
             }
         }
-        
     }
+
     /**
      * handles piece selection when a board button is clicked.
      *
@@ -105,44 +125,50 @@ public class GameController implements KeyListener, ActionListener
                 if (e.getSource() == buttons[r][c])
                 {
                     Space space = model.getBoard().getSpace(r, c);
+
                     if (space != null)
                     {
-                        selectedAnimal = clickedAnimal;
                         Animal clickedAnimal = space.getAnimal();
-                
 
                         if (clickedAnimal != null)
                         {
-                            if(model.getCurrentTurn()==-1)
+                            if (model.getCurrentTurn() == -1)
                             {
-                                    handleInitialPick(clickedAnimal); 
+                                handleInitialPick(clickedAnimal);
                             }
-                            else if (model.getCurrentTurn() != -1 && clickedAnimal.getOwnerId() != model.getCurrentTurn())
+                            else if (clickedAnimal.getOwnerId() != model.getCurrentTurn())
                             {
                                 view.updateStatus("That's not your animal!");
                                 selectedAnimal = null;
                             }
-                            else if(model.getCurrentTurn()!=-1)
+                            else
                             {
                                 // removes the old highlight first
-                                for (int row = 0; row < 9; row++)
+                                for (int row = 0; row < 7; row++)
                                 {
-                                    for (int col = 0; col < 7; col++)
-                                        {
-                                            buttons[row][col].setBorder(
-                                                BorderFactory.createLineBorder(new Color(210, 210, 210))
-                                            );
-                                        }
+                                    for (int col = 0; col < 9; col++)
+                                    {
+                                        buttons[row][col].setBorder(
+                                                BorderFactory.createLineBorder(
+                                                        new Color(210, 210, 210)
+                                                )
+                                        );
+                                    }
                                 }
 
-selectedAnimal = clickedAnimal;
+                                selectedAnimal = clickedAnimal;
 
-// highlights the selected animal
-buttons[r][c].setBorder(
-    BorderFactory.createLineBorder(new Color(255, 170, 0), 3)
-);
+                                // highlights the selected animal
+                                buttons[r][c].setBorder(
+                                        BorderFactory.createLineBorder(
+                                                new Color(255, 170, 0), 3
+                                        )
+                                );
 
-view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to move.");
+                                view.updateStatus(
+                                        "Selected: " + selectedAnimal.getName()
+                                                + ". Use U/D/L/R to move."
+                                );
                             }
                         }
                         else
@@ -168,53 +194,47 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
     @Override
     public void keyTyped(KeyEvent a)
     {
-        if(model.getCurrentTurn()==-1)
+        if (model.getCurrentTurn() == -1)
         {
-            view.updateStatus("Please complete animal selection first!"); 
-            return; 
+            view.updateStatus("Please complete animal selection first!");
+            return;
         }
+
         if (selectedAnimal == null)
         {
             view.updateStatus("Select an animal first.");
             return;
         }
+
         int r = selectedAnimal.getRow();
         int c = selectedAnimal.getCol();
-        
+
         String moveMessage;
-        
+
         switch (a.getKeyChar())
         {
-            
             case 'L':
             case 'l':
-                
-                view.getBoardButton(r,c).setText("");
+                view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'L');
                 break;
 
             case 'R':
             case 'r':
-                
-                view.getBoardButton(r,c).setText("");
+                view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'R');
-       
                 break;
 
             case 'U':
             case 'u':
-                
-                view.getBoardButton(r,c).setText("");
+                view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'U');
-        
                 break;
 
             case 'D':
             case 'd':
-                
-                view.getBoardButton(r,c).setText("");
+                view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'D');
-                
                 break;
 
             default:
@@ -223,9 +243,8 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
         }
 
         // if the move did not happen, the player's turn stays the same
-        if (moveMessage.equals("Invalid move!") ||
-            moveMessage.contains("cannot capture"))
-        
+        if (moveMessage.equals("Invalid move!")
+                || moveMessage.contains("cannot capture"))
         {
             view.updateStatus(moveMessage + " Try again.");
             view.refreshBoard(model);
@@ -233,22 +252,30 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
             selectedAnimal = null;
             return;
         }
-        
+
         // changes turn only after a successful move
         model.updateTurn();
         model.checkWin();
-        
+
         if (model.getWinner() != null)
         {
-            view.showMessage("Player " + model.getWinner().getPlayerNum() + " wins!");
+            view.showMessage(
+                    "Player " + model.getWinner().getPlayerNum() + " wins!"
+            );
         }
         else
         {
-            view.updateStatus(moveMessage + " Player " + model.getCurrentTurn() + "'s turn.");
+            view.updateStatus(
+                    moveMessage + " Player "
+                            + model.getCurrentTurn() + "'s turn."
+            );
+
+            view.highlightTurn(model.getCurrentTurn());
         }
-        
+
         view.refreshBoard(model);
         view.requestFocusInWindow();
+
         selectedAnimal = null;
     }
 
@@ -269,5 +296,4 @@ view.updateStatus("Selected: " + selectedAnimal.getName() + ". Use U/D/L/R to mo
     {
         // intentionally left empty
     }
-
 }
