@@ -1,3 +1,5 @@
+package model;
+
 import model.Game;
 import model.Player;
 import view.GameView;
@@ -14,11 +16,16 @@ public class MVCGame
         /* initializes game model */
         Game model = new Game(player1, player2);
 
-        /* initialize the game view */
-        GameView view = new GameView(); 
+        /* initialize game view */
+        GameView view = new GameView();
 
-        /* connects the model and view through the controller */
+        /* connects model and view through the controller */
         GameController controller = new GameController(model,view);
+
+        /* displays initial board state */
         view.refreshBoard(model);
+
+        /* ensures window receives keyboard input */
+        view.requestFocusInWindow();
     }
 }
