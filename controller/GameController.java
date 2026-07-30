@@ -244,7 +244,7 @@ public class GameController implements KeyListener, ActionListener
 
         // if the move did not happen, the player's turn stays the same
         if (moveMessage.equals("Invalid move!")
-                || moveMessage.contains("cannot capture"))
+                 || moveMessage.contains("Unable to capture"))
         {
             view.updateStatus(moveMessage + " Try again.");
             view.refreshBoard(model);
