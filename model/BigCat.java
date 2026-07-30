@@ -21,14 +21,15 @@ public abstract class BigCat extends Animal
      */
     public boolean canMove(Space position)
     {
-        //check if there is no mouse along the way 
-       if (position.isRiver())
+        //check if there is no mouse along the way
+        
+       if (position.isRiver() && position.getAnimal()!=null)
        {
-          if(position.getAnimal()!=null && position.getAnimal().getRank()==1)
-          {
-             return false; 
-          }
-          return true; 
+            return false; 
+       }
+       else if(position.isRiver())
+       {
+            return true;
        }
        return super.canMove(position); 
     }
