@@ -170,21 +170,11 @@ public class Board {
         int r = animal.getRow();
         int c = animal.getCol();
 
-        if (animal instanceof BigCat) {
-            // Jump logic
-            while (getSpace(r, c) != null && getSpace(r, c).isRiver()) {
-                if (direction == 'U') r--;
-                else if (direction == 'D') r++;
-                else if (direction == 'L') c--;
-                else if (direction == 'R') c++;
-            }
-        } else {
-            // Standard movement
-            if (direction == 'U') r--;
+        //move one step first 
+         if (direction == 'U') r--;
             else if (direction == 'D') r++;
             else if (direction == 'L') c--;
             else if (direction == 'R') c++;
-        }
 
         Space target = getSpace(r, c);
 
@@ -203,6 +193,16 @@ public class Board {
                     return "Unable to capture " + victim.getName() + "!";
                 }
             } else {
+                if (animal instanceof BigCat && target.isRiver()) {
+                    // Jump logic
+                    while (target.isRiver()) {
+                        if (direction == 'U') r--;
+                        else if (direction == 'D') r++;
+                        else if (direction == 'L') c--;
+                        else if (direction == 'R') c++;
+                        target = getSpace(r, c);
+                    }
+                }
                 performMove(animal, target, r, c);
                 return animal.getName() + " moved.";
             }
