@@ -16,6 +16,15 @@ public class Mouse extends Animal
        super("Mouse", 1, position, 0, 0, 0);
    }
 
+    /**
+   * Constructs a new Mouse that takes the provided input
+   * and assigns it to the attributes of the class
+   */
+     public Mouse(String name, int rank, Space position, int ownerId, int col, int row)
+    {
+       super(name, rank, position, ownerId, col, row);
+    }
+
    /**
    * Checks if Mouse can move to a specific position
    * @param position the space where mouse intends to move
@@ -31,6 +40,13 @@ public class Mouse extends Animal
         return super.canMove(position);
     }
 
+    
+     /**
+     * Checks if the attacker can capture the intended target 
+     * @param target the animal that the current player is targeting 
+     * @return true if and only if the current target is either an elephant or another mouse 
+     */
+    @Override
     public boolean canCapture(Animal target)
     {
         // A mouse on the river may not capture an elephant or another mouse on land[cite: 1]
@@ -45,9 +61,13 @@ public class Mouse extends Animal
             return false;
         }
 
-
-
         // Mouse can capture an elephant (rank 8) or another mouse (rank 1)[cite: 1]
-        return target.getRank() == 8 || target.getRank() == 1;
+        if(target.getRank() == 8 || target.getRank() == 1)
+        {
+                return true;
+        }
+        
+        // Default: Mouse cannot capture any other animal ranks
+        return false;
     }
 }
