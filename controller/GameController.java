@@ -84,12 +84,12 @@ public class GameController implements KeyListener, ActionListener
 
                 if (model.getCurrentTurn() == 1)
                 {
-                    view.updateStatus("Player 1 moves first.");
+                    view.updateStatus("Player 2 picked " + p2Pick.getName() + ". Player 1 moves first.");
                     view.highlightTurn(1);
                 }
                 else if (model.getCurrentTurn() == 2)
                 {
-                    view.updateStatus("Player 2 moves first.");
+                    view.updateStatus("Player 2 picked " + p2Pick.getName() +". Player 2 moves first.");
                     view.highlightTurn(2);
                 }
                 else if (model.getCurrentTurn() == -1)
