@@ -68,6 +68,6 @@ public class Mouse extends Animal
         }
         
         // Default: Mouse cannot capture any other animal ranks
-        return false;
+        return super.canCapture(target);
     }
 }
