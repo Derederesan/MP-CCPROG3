@@ -84,7 +84,24 @@ public class Board {
      */
     private void addAnimal(String name, int rank, int row, int col, int ownerId) {
         Space space = getSpace(row, col);
-        Animal animal = new Animal(name, rank, space, ownerId, col, row);
+        Animal animal;
+        //switch statement to initialize polymorphism(mouse, tiger and lion class); 
+        switch(rank)
+        {
+            case Animal.MOUSE: 
+                animal=new Mouse(name, rank, space, ownerId, col, row);
+                break; 
+            case Animal.LION: 
+                animal= new Lion(name, rank, space, ownerId, col, row);
+                break; 
+            case Animal.TIGER:
+                animal= new Tiger(name, rank, space, ownerId, col, row);
+                break;  
+            default:
+                animal= new Animal(name, rank, space, ownerId, col, row);
+                break; 
+
+        }
         space.setAnimal(animal);
     }
 
@@ -113,7 +130,7 @@ public class Board {
 
     public boolean isValidMove(Animal animal, Space target) {
         if (target == null) {
-            System.out.println("Move blocked: Out of bounds!");
+            //System.out.println("Move blocked: Out of bounds!");
             return false;
         }
         if (!animal.canMove(target)) {
