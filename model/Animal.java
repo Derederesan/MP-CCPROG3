@@ -99,6 +99,11 @@ public class Animal
 
     public boolean canMove(Space position)
     {
+        //if position is out of bounds
+        if(position==null)
+        {
+            return false; 
+        }
         //if position is a river, not allowed 
         if(position.isRiver())
         {
