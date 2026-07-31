@@ -34,20 +34,20 @@ public class Board {
                 // Animal Dens
                 if ((i == 3 && j == 0) || (j == 8 && i == 3)) {
                     int ownerId = (i == 0) ? 2 : 1;
-                    this.board[i][j] = new Space(Space.ANIMAL_DEN, ownerId);
+                    this.board[i][j] = new AnimalDen(ownerId);
                 }
                 // Traps around dens
                 else if (((i == 2 || i == 4) && (j == 0 || j == 8)) || ((i == 3) && (j == 1 || j == 7))) {
                     int ownerId = (i <= 1) ? 2 : 1;
-                    this.board[i][j] = new Space(Space.TRAP, ownerId);
+                    this.board[i][j] = new Trap(ownerId);
                 }
                 // River blocks
                 else if ((j >= 3 && j <= 5) && (i == 1 || i == 2 || i == 4 || i == 5)) {
-                    this.board[i][j] = new Space(Space.RIVER, 0);
+                    this.board[i][j] = new River(0);
                 }
                 // Regular Land
                 else {
-                    this.board[i][j] = new Space(Space.LAND, 0);
+                    this.board[i][j] = new Land(0);
                 }
             }
         }
@@ -171,12 +171,24 @@ public class Board {
         int c = animal.getCol();
 
         //move one step first 
-         if (direction == 'U') r--;
+            if (direction == 'U') r--;
             else if (direction == 'D') r++;
             else if (direction == 'L') c--;
             else if (direction == 'R') c++;
 
         Space target = getSpace(r, c);
+
+        if ((animal instanceof Tiger || animal instanceof Lion) && target.isRiver()) {
+                    // Jump logic
+                    while (target.isRiver()) {
+                        if (direction == 'U') r--;
+                        else if (direction == 'D') r++;
+                        else if (direction == 'L') c--;
+                        else if (direction == 'R') c++;
+                        target = getSpace(r, c);
+                    }
+                target = getSpace(r, c);
+        }
 
         if (isValidMove(animal, target)) {
             if (target.getAnimal() != null) {
@@ -193,21 +205,13 @@ public class Board {
                     return "Unable to capture " + victim.getName() + "!";
                 }
             } else {
-                if (animal instanceof BigCat && target.isRiver()) {
-                    // Jump logic
-                    while (target.isRiver()) {
-                        if (direction == 'U') r--;
-                        else if (direction == 'D') r++;
-                        else if (direction == 'L') c--;
-                        else if (direction == 'R') c++;
-                        target = getSpace(r, c);
-                    }
-                }
+                
                 performMove(animal, target, r, c);
                 return animal.getName() + " moved.";
+                }
+                
             }
+            return "Invalid move!";
         }
-
-        return "Invalid move!";
     }
-}
+
