@@ -6,13 +6,7 @@ package model;
 * It also has a method to check if the specified space is either a river, a trap, a land or an animal den. 
 * It also has setter and getter methods for its animal and owner Id. 
 */
-public class Space{
-
-    public static final String LAND = "Land";  
-    public static final String ANIMAL_DEN = "Animal Den"; 
-    public static final String TRAP  ="Trap"; 
-    public static final String RIVER = "River"; 
-
+public abstract class Space{
     private String type; 
     private Animal animal; 
     private int ownerId; 
@@ -35,7 +29,7 @@ public class Space{
     
     public boolean isAnimalDen()
     {
-        return this.type.equals(ANIMAL_DEN); 
+        return this instanceof AnimalDen; 
     }
 
     /**
@@ -45,7 +39,7 @@ public class Space{
     
     public boolean isLand()
     {
-        return this.type.equals(LAND); 
+        return  this instanceof Land; 
     }
 
     /**
@@ -55,7 +49,7 @@ public class Space{
     
     public boolean isTrap()
     {
-        return this.type.equals(TRAP); 
+        return this instanceof Trap; 
     }
 
     /**
@@ -65,7 +59,7 @@ public class Space{
     
     public boolean isRiver()
     {
-        return this.type.equals(RIVER); 
+        return  this instanceof River; 
     }
 
     /**
@@ -76,7 +70,7 @@ public class Space{
     
     public boolean isEnemyDen(int playerId)
     {
-        return this.isAnimalDen() && (this.ownerId != playerId);  
+        return this instanceof AnimalDen && (this.ownerId != playerId);  
     }
 
     /**
@@ -95,7 +89,7 @@ public class Space{
     
     public void setAnimal(Animal animal)
     {
-        this.animal= animal; 
+        this.animal = animal; 
     }
     /**
     * retrieves the id of the current space's owner 
