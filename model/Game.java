@@ -2,7 +2,7 @@ package model;
 
 /**
  * A game allows the initialization of players and board. It keeps track of the current turn,
- * serves as the checker on which players should go first, and checks if a player has won. 
+ * serves as the checker on which players should go first, and checks if a player has won.
  */
 
 import java.util.ArrayList;
@@ -39,16 +39,16 @@ public class Game {
 
     public ArrayList<Integer> shuffleRanks()
     {
-    ArrayList<Integer> ranks = new ArrayList<>();
+        ArrayList<Integer> ranks = new ArrayList<>();
 
-    for (int i = 1; i <= 8; i++)
-    {
-        ranks.add(i);
-    }
+        for (int i = 1; i <= 8; i++)
+        {
+            ranks.add(i);
+        }
 
-    Collections.shuffle(ranks);
+        Collections.shuffle(ranks);
 
-    return ranks;
+        return ranks;
     }
 
     public int firstPick(Animal p1Choice, Animal p2Choice) {
@@ -82,27 +82,24 @@ public class Game {
      */
     public void checkWin()
     {
-        Player currentPlayer;
+        Player currentPlayer = (this.currentTurn == 1) ? this.player1 : this.player2;
 
-        if (this.currentTurn == 1)
+        for (int r = 0; r < Board.ROWS; r++)
         {
-            currentPlayer = this.player1;
-        }
-        else
-        {
-            currentPlayer = this.player2;
-        }
-
-        for (Animal animal : currentPlayer.getAnimals())
-        {
-            Space currentSpace = animal.getCurrentSpace();
-
-            if (currentSpace.isEnemyDen(this.currentTurn))
+            for (int c = 0; c < Board.COLS; c++)
             {
-                this.winner = currentPlayer;
-                this.isGameOver = true;
-                System.out.println("Player " + this.currentTurn + " has won!");
-                return;
+                Space space = this.board.getSpace(r, c);
+                if (space != null && space.getAnimal() != null)
+                {
+                    Animal animal = space.getAnimal();
+                    if (animal.getOwnerId() == this.currentTurn && space.isEnemyDen(this.currentTurn))
+                    {
+                        this.winner = currentPlayer;
+                        this.isGameOver = true;
+                        System.out.println("Player " + this.currentTurn + " has won!");
+                        return;
+                    }
+                }
             }
         }
     }
