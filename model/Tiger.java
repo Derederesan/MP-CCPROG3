@@ -1,18 +1,17 @@
 package model;
 
 /**
- * The subclass of the abstract superclass BigCat
+ * A Trap is a child class that inherits the methods and attributes of Space.
  */
 
-public class Tiger extends BigCat
-{
-    /**
-     * Constructs the a new Tiger that takes the provided input and assigns it
-     * to the specified attributes of the class
-     */
+public class Trap extends Space{
 
-    public Tiger(Space position, int ownerId, int col, int row)
+    /**
+     *  Constructs a new Trap that takes the input provided
+     * and assigns it to the specified attributes of the class.
+     */
+    public Trap(int ownerId)
     {
-        super("Tiger", 6, position, ownerId, col, row);
+        super("Trap", ownerId);
     }
 }
