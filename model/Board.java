@@ -32,9 +32,12 @@ public class Board {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 // Animal Dens
-                if ((i == 3 && j == 0) || (j == 8 && i == 3)) {
-                    int ownerId = (i == 0) ? 2 : 1;
-                    this.board[i][j] = new AnimalDen(ownerId);
+                if (i == 3 && j == 0)
+                {
+                    this.board[i][j] = new Space(Space.ANIMAL_DEN, 1);
+                } else if (i == 3 && j == 8)
+                {
+                    this.board[i][j] = new Space(Space.ANIMAL_DEN, 2);
                 }
                 // Traps around dens
                 else if (((i == 2 || i == 4) && (j == 0 || j == 8)) || ((i == 3) && (j == 1 || j == 7))) {
@@ -85,22 +88,24 @@ public class Board {
     private void addAnimal(String name, int rank, int row, int col, int ownerId) {
         Space space = getSpace(row, col);
         Animal animal;
-        //switch statement to initialize polymorphism(mouse, tiger and lion class); 
+        //switch statement to initialize polymorphism(mouse, tiger and lion class);
         switch(rank)
         {
-            case Animal.MOUSE: 
-                animal=new Mouse(name, rank, space, ownerId, col, row);
-                break; 
-            case Animal.LION: 
-                animal= new Lion(name, rank, space, ownerId, col, row);
-                break; 
-            case Animal.TIGER:
-                animal= new Tiger(name, rank, space, ownerId, col, row);
-                break;  
-            default:
-                animal= new Animal(name, rank, space, ownerId, col, row);
-                break; 
+            case Animal.MOUSE:
+                animal = new Mouse(space, ownerId, col, row);
+                break;
 
+            case Animal.LION:
+                animal = new Lion(space, ownerId, col, row);
+                break;
+
+            case Animal.TIGER:
+                animal = new Tiger(space, ownerId, col, row);
+                break;
+
+            default:
+                animal = new Animal(name, rank, space, ownerId, col, row);
+                break;
         }
         space.setAnimal(animal);
     }
@@ -170,26 +175,36 @@ public class Board {
         int r = animal.getRow();
         int c = animal.getCol();
 
-        //move one step first 
-            if (direction == 'U') r--;
-            else if (direction == 'D') r++;
-            else if (direction == 'L') c--;
-            else if (direction == 'R') c++;
+        //move one step first
+        if (direction == 'U') r--;
+        else if (direction == 'D') r++;
+        else if (direction == 'L') c--;
+        else if (direction == 'R') c++;
 
         Space target = getSpace(r, c);
 
-        if ((animal instanceof Tiger || animal instanceof Lion) && target.isRiver()) {
-                    // Jump logic
-                    while (target.isRiver()) {
-                        if (direction == 'U') r--;
-                        else if (direction == 'D') r++;
-                        else if (direction == 'L') c--;
-                        else if (direction == 'R') c++;
-                        target = getSpace(r, c);
-                    }
-                target = getSpace(r, c);
-        }
+        if ((animal instanceof Tiger || animal instanceof Lion)
+                && target != null
+                && target.isRiver()) {
 
+            // Jump logic - check for mouse blocking in intermediate river tiles
+            while (target != null && target.isRiver()) {
+                if (target.getAnimal() != null && target.getAnimal().getRank() == Animal.MOUSE) {
+                    return "Invalid move!"; // Blocked by mouse in river
+                }
+
+                if (direction == 'U') r--;
+                else if (direction == 'D') r++;
+                else if (direction == 'L') c--;
+                else if (direction == 'R') c++;
+
+                target = getSpace(r, c);
+            }
+
+            if (target == null) {
+                return "Invalid move!";
+            }
+        }
         if (isValidMove(animal, target)) {
             if (target.getAnimal() != null) {
                 Animal victim = target.getAnimal();
@@ -205,13 +220,12 @@ public class Board {
                     return "Unable to capture " + victim.getName() + "!";
                 }
             } else {
-                
+
                 performMove(animal, target, r, c);
                 return animal.getName() + " moved.";
-                }
-                
             }
-            return "Invalid move!";
-        }
-    }
 
+        }
+        return "Invalid move!";
+    }
+}
