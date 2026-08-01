@@ -1,21 +1,21 @@
 package model;
 
 /**
-    *  A Player controls the movement of the animal on the board, as well as sets the color of animals. 
-*/
+ *  A Player controls the movement of the animal on the board, as well as sets the color of animals.
+ */
 import java.util.ArrayList;
 
-public class Player 
+public class Player
 {
-    private int playerNum; 
-    private String color; 
-    private char move; 
-    private ArrayList<Animal> animals; 
+    private int playerNum;
+    private String color;
+    private char move;
+    private ArrayList<Animal> animals;
 
     /**
-    *  Constructs a new Player that takes the input provided 
-    * and assigns it to the specified attributes of the class.
-    */
+     *  Constructs a new Player that takes the input provided
+     * and assigns it to the specified attributes of the class.
+     */
     public Player(int playerNum)
     {
         this.playerNum = playerNum;
@@ -23,42 +23,42 @@ public class Player
     }
 
     /**
-    * Sets the color of the player's animal 
-    * @param color the chosen color 
-    */
-    
+     * Sets the color of the player's animal
+     * @param color the chosen color
+     */
+
     public void setColor(String color)
     {
-        this.color = color; 
+        this.color = color;
     }
 
     /**
-    * Takes the current movement the player intends to execute 
-    * @param movement the movement to be set 
-    */
-    
+     * Takes the current movement the player intends to execute
+     * @param movement the movement to be set
+     */
+
     public void setMove(char movement)
     {
-        this.move = movement; 
+        this.move = movement;
     }
 
     /**
-    * Gets the player's number 
-    * @return the player's number 
-    */
-    
+     * Gets the player's number
+     * @return the player's number
+     */
+
     public int getPlayerNum()
     {
-        return this.playerNum; 
+        return this.playerNum;
     }
 
     /**
-    *  Gets the ArrayList of the player's animals 
-    * @return the ArrayList of the player's animals 
-    */
-    
+     *  Gets the ArrayList of the player's animals
+     * @return the ArrayList of the player's animals
+     */
+
     public ArrayList<Animal> getAnimals()
     {
-        return this.animals; 
+        return this.animals;
     }
 }
