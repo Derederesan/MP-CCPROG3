@@ -3,7 +3,7 @@ package model;
 public class AnimalDen extends Space {
 
     public AnimalDen(int ownerId) {
-        super(Space.ANIMAL_DEN, ownerId);
+        super("AnimalDen", ownerId);
     }
 
 }
