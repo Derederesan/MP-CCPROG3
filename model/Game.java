@@ -15,6 +15,7 @@ public class Game {
     private Board board;
     private boolean isGameOver;
     private Player winner;
+    private int moveCount = 0;
 
     /**
      * Constructs a new Game that takes the input provided and assigns it
@@ -29,9 +30,9 @@ public class Game {
     }
 
     /**
-     * Used to shuffle the ranks of the animals 
+     * Used to shuffle the ranks of the animals
      *
-     * @return the shuffled ranks of the animals 
+     * @return the shuffled ranks of the animals
      */
 
     public ArrayList<Integer> shuffleRanks()
@@ -48,7 +49,7 @@ public class Game {
         return ranks;
     }
 
-/**
+    /**
      * Compares the chosen animal piece of each player
      * and uses it to determine which player goes first.
      *
@@ -94,7 +95,7 @@ public class Game {
 
         for(Animal animal : animals)
         {
-            Space curSpace = animal.getCurrentSpace(); 
+            Space curSpace = animal.getCurrentSpace();
 
             if(curSpace.isEnemyDen(currentTurn))
             {
@@ -142,6 +143,13 @@ public class Game {
 
     public Board getBoard(){
         return this.board;
+    }
+    public void incrementMoveCount() {
+        moveCount++;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
     }
 
 }
