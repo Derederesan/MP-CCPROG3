@@ -3,7 +3,7 @@ package model;
 /**
  * A lion is the subclass of the abstract superclass BigCat
  */
-public class Lion extends BigCat 
+public class Lion extends BigCat
 {
     /**
      * Constructs a new Space that takes the input provided
