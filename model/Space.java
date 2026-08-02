@@ -6,7 +6,8 @@ package model;
  * It also has a method to check if the specified space is either a river, a trap, a land or an animal den.
  * It also has setter and getter methods for its animal and owner Id.
  */
-public class Space{
+public class Space
+{
 
     private String type;
     private Animal animal;
