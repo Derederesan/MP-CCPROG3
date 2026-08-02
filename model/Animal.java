@@ -22,7 +22,7 @@ public class Animal
     private int ownerId;
     private int col;
     private int row;
-
+    private boolean skipsTurn = false;
     /**
      *  Constructs a new Animal that takes the input provided
      * and assigns it to the specified attributes of the class.
@@ -91,6 +91,23 @@ public class Animal
         return this.ownerId;
     }
     /**
+     *Retrieves the skipsTurn value of an animal
+     *@return the animal's skipsTurn
+     */
+    public boolean getSkipsTurn()
+    {
+        return this.skipsTurn;
+    }
+
+    /*
+    *sets whether the animal should skip a turn 
+    * @param turn determines if the animal should skip a turn 
+    */
+    public void setSkipTurn(boolean turn)
+    {
+        this.skipsTurn = turn; 
+    }
+    /**
      * Checks if the animal can move to a certain position on the board
      * @param position the intended space the animal wishes to move to
      * @return true if and only if it is not moving to a river and is not
@@ -106,6 +123,17 @@ public class Animal
         }
         //if the position is the player's own den, not allowed
         if(position.isAnimalDen() && (position.getOwnerId() == this.ownerId))
+        {
+            
+            return false;
+        }
+        //if the position is the player's own trap, not allowed 
+        if(position.getAnimal()==null && position.isTrap() && (position.getOwnerId() == this.ownerId))
+        {
+            return false; 
+        }
+        //if the position below isnt occupied by an animal owned by the same player 
+        if(position.getAnimal()!=null && (position.getAnimal().getOwnerId() == this.ownerId))
         {
             return false;
         }
@@ -132,8 +160,8 @@ public class Animal
      */
     public boolean canCapture(Animal target)
     {
-        //if target is currently on a trap
-        if(target.getCurrentSpace().isTrap())
+        //if target is currently on a trap and does not belong to same owner
+        if(target.getCurrentSpace().isTrap() && (target.getOwnerId()!=this.getOwnerId()))
         {
             return true;
         }
@@ -141,6 +169,10 @@ public class Animal
         if(this.RANK==8 && target.getRank()==1)
         {
             return false;
+        }
+        if(this.getOwnerId()==target.getOwnerId())
+        {
+            return false; 
         }
         //if not, check if attacker is equal or higher rank than target
         return this.getRank()>=target.getRank();
