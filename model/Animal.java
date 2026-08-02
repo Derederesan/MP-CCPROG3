@@ -100,12 +100,12 @@ public class Animal
     }
 
     /*
-    *sets whether the animal should skip a turn 
-    * @param turn determines if the animal should skip a turn 
-    */
+     *sets whether the animal should skip a turn
+     * @param turn determines if the animal should skip a turn
+     */
     public void setSkipTurn(boolean turn)
     {
-        this.skipsTurn = turn; 
+        this.skipsTurn = turn;
     }
     /**
      * Checks if the animal can move to a certain position on the board
@@ -124,15 +124,15 @@ public class Animal
         //if the position is the player's own den, not allowed
         if(position.isAnimalDen() && (position.getOwnerId() == this.ownerId))
         {
-            
+
             return false;
         }
-        //if the position is the player's own trap, not allowed 
+        //if the position is the player's own trap, not allowed
         if(position.getAnimal()==null && position.isTrap() && (position.getOwnerId() == this.ownerId))
         {
-            return false; 
+            return false;
         }
-        //if the position below isnt occupied by an animal owned by the same player 
+        //if the position below isnt occupied by an animal owned by the same player
         if(position.getAnimal()!=null && (position.getAnimal().getOwnerId() == this.ownerId))
         {
             return false;
@@ -172,7 +172,7 @@ public class Animal
         }
         if(this.getOwnerId()==target.getOwnerId())
         {
-            return false; 
+            return false;
         }
         //if not, check if attacker is equal or higher rank than target
         return this.getRank()>=target.getRank();
