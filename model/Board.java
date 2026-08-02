@@ -144,7 +144,7 @@ public class Board {
             return false;
         }
 
-       //if animal is currently on a trap 
+        //if animal is currently on a trap
         if (animal.getCurrentSpace().isTrap() && animal.getSkipsTurn()==true)
         {
             return false;
@@ -178,7 +178,7 @@ public class Board {
 
     public String possibleMove(Animal animal)
     {
-        int curRow = animal.getRow(); 
+        int curRow = animal.getRow();
         int curCol = animal.getCol();
         String Up = "";
         String Down = "";
@@ -267,10 +267,10 @@ public class Board {
                 if(target.isTrap())
                 {
                     animal.setSkipTurn(true);
-                    return animal.getName() + " is Trapped!"; 
+                    return animal.getName() + " is Trapped!";
                 }
                 else
-                return animal.getName() + " moved.";
+                    return animal.getName() + " moved.";
             }
 
         }
@@ -278,7 +278,7 @@ public class Board {
         {
             return "Out of bounds!";
         }
-        else if (animal.getCurrentSpace().isTrap() && animal.getSkipsTurn()==true) 
+        else if (animal.getCurrentSpace().isTrap() && animal.getSkipsTurn()==true)
         {
             return animal.getName() + " is still Trapped!";
         }
@@ -288,7 +288,7 @@ public class Board {
         }
         else if(target.isAnimalDen() && (target.getOwnerId() == animal.getOwnerId()))
         {
-             return animal.getName() + " cannot move to own den!";
+            return animal.getName() + " cannot move to own den!";
         }
         else if(target.isRiver())
         {
