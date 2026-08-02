@@ -168,7 +168,7 @@ public class GameController implements KeyListener, ActionListener
                                 view.updateStatus(
                                         "Selected: " + selectedAnimal.getName()
                                                 + ". Use U/D/L/R to move. \n" +
-                                        model.getBoard().possibleMove(selectedAnimal)
+                                                model.getBoard().possibleMove(selectedAnimal)
                                 );
                             }
                         }
@@ -211,7 +211,7 @@ public class GameController implements KeyListener, ActionListener
         int c = selectedAnimal.getCol();
 
         String moveMessage;
-        String Moves; 
+        String Moves;
 
         switch (a.getKeyChar())
         {
@@ -251,7 +251,7 @@ public class GameController implements KeyListener, ActionListener
         // if the move did not happen, the player's turn stays the same
         if (moveMessage.equals("Invalid move!")
                 || moveMessage.equals("Out of bounds!")
-                 || moveMessage.contains("Unable to capture") 
+                || moveMessage.contains("Unable to capture")
                 || moveMessage.contains("cannot move"))
         {
             view.updateStatus(moveMessage + " Try again. " + Moves);
@@ -270,7 +270,7 @@ public class GameController implements KeyListener, ActionListener
             return;
         }
 
-model.checkWin();
+        model.checkWin();
 
         if (model.getWinner() != null)
         {
@@ -280,11 +280,15 @@ model.checkWin();
         }
         else
         {
-             // changes turn only after a successful move
+            // changes turn only after a successful move
+            model.incrementMoveCount();
             model.updateTurn();
             view.updateStatus(
-                    moveMessage + " Player "
-                            + model.getCurrentTurn() + "'s turn."
+                    moveMessage
+                            + " Player "
+                            + model.getCurrentTurn()
+                            + "'s turn. | Moves: "
+                            + model.getMoveCount()
             );
 
             view.highlightTurn(model.getCurrentTurn());
