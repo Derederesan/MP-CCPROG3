@@ -8,11 +8,6 @@ package model;
  */
 public class Space{
 
-    public static final String LAND = "Land";
-    public static final String ANIMAL_DEN = "Animal Den";
-    public static final String TRAP  ="Trap";
-    public static final String RIVER = "River";
-
     private String type;
     private Animal animal;
     private int ownerId;
@@ -35,7 +30,7 @@ public class Space{
 
     public boolean isAnimalDen()
     {
-        return this.type.equals(ANIMAL_DEN);
+        return this instanceof AnimalDen;
     }
 
     /**
@@ -45,7 +40,7 @@ public class Space{
 
     public boolean isLand()
     {
-        return this.type.equals(LAND);
+        return this instanceof Land;
     }
 
     /**
@@ -55,7 +50,7 @@ public class Space{
 
     public boolean isTrap()
     {
-        return this.type.equals(TRAP);
+        return this instanceof Trap;
     }
 
     /**
@@ -65,7 +60,7 @@ public class Space{
 
     public boolean isRiver()
     {
-        return this.type.equals(RIVER);
+        return this instanceof River;
     }
 
     /**
