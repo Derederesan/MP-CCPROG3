@@ -6,7 +6,6 @@ package model;
 
 public class Trap extends Space
 {
-
     /**
      *  Constructs a new Trap that takes the input provided
      * and assigns it to the specified attributes of the class.
@@ -15,4 +14,5 @@ public class Trap extends Space
     {
         super("Trap", ownerId);
     }
+
 }
