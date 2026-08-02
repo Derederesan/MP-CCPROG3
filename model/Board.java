@@ -34,14 +34,14 @@ public class Board {
                 // Animal Dens
                 if (i == 3 && j == 0)
                 {
-                    this.board[i][j] = new Space(Space.ANIMAL_DEN, 1);
+                    this.board[i][j] = new AnimalDen(1);
                 } else if (i == 3 && j == 8)
                 {
-                    this.board[i][j] = new Space(Space.ANIMAL_DEN, 2);
+                    this.board[i][j] = new AnimalDen(2);
                 }
                 // Traps around dens
                 else if (((i == 2 || i == 4) && (j == 0 || j == 8)) || ((i == 3) && (j == 1 || j == 7))) {
-                    int ownerId = (i <= 1) ? 2 : 1;
+                    int ownerId = (j < 4) ? 1 : 2;
                     this.board[i][j] = new Trap(ownerId);
                 }
                 // River blocks
@@ -134,14 +134,26 @@ public class Board {
      */
 
     public boolean isValidMove(Animal animal, Space target) {
-        if (target == null) {
-            //System.out.println("Move blocked: Out of bounds!");
+        if (target == null)
+        {
             return false;
         }
-        if (!animal.canMove(target)) {
+
+        if (!animal.canMove(target))
+        {
             return false;
         }
-        // Basic requirement rule: program logic check structure matching ruleset
+
+       //if animal is currently on a trap 
+        if (animal.getCurrentSpace().isTrap() && animal.getSkipsTurn()==true)
+        {
+            return false;
+        }
+
+        if(target.getAnimal()!=null && target.getAnimal().getRank()>animal.getRank())
+        {
+            return false;
+        }
         return true;
     }
 
@@ -164,6 +176,28 @@ public class Board {
         animal.updatePosition(target, newRow, newCol);
     }
 
+    public String possibleMove(Animal animal)
+    {
+        int curRow = animal.getRow(); 
+        int curCol = animal.getCol();
+        String Up = "";
+        String Down = "";
+        String Left = "";
+        String Right = "";
+        if(curRow > 0 && this.isValidMove(animal,this.board[curRow-1][curCol]))
+            Up = "U";
+        if(curRow<ROWS -1 && this.isValidMove(animal,this.board[curRow+1][curCol]))
+            Down =" D";
+        if(curCol >0 && this.isValidMove(animal,this.board[curRow][curCol-1]))
+            Left = " L";
+        if(curCol<COLS-1 && this.isValidMove(animal,this.board[curRow][curCol+1]))
+            Right = " R";
+        if(animal.getSkipsTurn()==true)
+            return "Skips Turn!";
+        if(Up.equals("")&& Down.equals("")&&Left.equals("")&&Right.equals(""))
+            return "No Possible Moves.";
+        return "Possible Moves: " + Up + Down + Left + Right;
+    }
     /**
      * Calculates the coordinates the animal intends to move to, checks if move is valis
      * and moves the animal. Also checks if animal can capture another animal
@@ -172,6 +206,8 @@ public class Board {
      * @param direction the direction the animal intends to move
      */
     public String moveAnimal(Animal animal, char direction) {
+        int curCol = animal.getCol();
+        int curRow = animal.getRow();
         int r = animal.getRow();
         int c = animal.getCol();
 
@@ -205,8 +241,9 @@ public class Board {
                 return "Invalid move!";
             }
         }
+
         if (isValidMove(animal, target)) {
-            if (target.getAnimal() != null) {
+            if (target.getAnimal() != null){
                 Animal victim = target.getAnimal();
 
                 if (animal.canCapture(victim)) {
@@ -221,11 +258,43 @@ public class Board {
                 }
             } else {
 
+                Space oldSpace = animal.getCurrentSpace();
                 performMove(animal, target, r, c);
+                if(oldSpace.isTrap())
+                {
+                    this.board[curRow][curCol]= new Land(0);
+                }
+                if(target.isTrap())
+                {
+                    animal.setSkipTurn(true);
+                    return animal.getName() + " is Trapped!"; 
+                }
+                else
                 return animal.getName() + " moved.";
             }
 
         }
+        else if(target == null)
+        {
+            return "Out of bounds!";
+        }
+        else if (animal.getCurrentSpace().isTrap() && animal.getSkipsTurn()==true) 
+        {
+            return animal.getName() + " is still Trapped!";
+        }
+        else if(target.isTrap() && (target.getOwnerId() == animal.getOwnerId()))
+        {
+            return animal.getName() + " cannot move to own trap!";
+        }
+        else if(target.isAnimalDen() && (target.getOwnerId() == animal.getOwnerId()))
+        {
+             return animal.getName() + " cannot move to own den!";
+        }
+        else if(target.isRiver())
+        {
+            return animal.getName() + " cannot move into river!";
+        }
+        System.out.println(animal.getSkipsTurn());
         return "Invalid move!";
     }
 }
