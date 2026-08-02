@@ -2,7 +2,8 @@ package model;
 /**
  * A River is a child class that inherits the methods and attributes of Space.
  */
-public class River extends Space{
+public class River extends Space
+{
 
     /**
      *  Constructs a new River that takes the input provided
