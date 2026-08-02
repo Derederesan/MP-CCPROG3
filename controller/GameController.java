@@ -167,7 +167,8 @@ public class GameController implements KeyListener, ActionListener
 
                                 view.updateStatus(
                                         "Selected: " + selectedAnimal.getName()
-                                                + ". Use U/D/L/R to move."
+                                                + ". Use U/D/L/R to move. \n" +
+                                        model.getBoard().possibleMove(selectedAnimal)
                                 );
                             }
                         }
@@ -210,6 +211,7 @@ public class GameController implements KeyListener, ActionListener
         int c = selectedAnimal.getCol();
 
         String moveMessage;
+        String Moves; 
 
         switch (a.getKeyChar())
         {
@@ -217,24 +219,28 @@ public class GameController implements KeyListener, ActionListener
             case 'l':
                 view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'L');
+                Moves = model.getBoard().possibleMove(selectedAnimal);
                 break;
 
             case 'R':
             case 'r':
                 view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'R');
+                Moves = model.getBoard().possibleMove(selectedAnimal);
                 break;
 
             case 'U':
             case 'u':
                 view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'U');
+                Moves = model.getBoard().possibleMove(selectedAnimal);
                 break;
 
             case 'D':
             case 'd':
                 view.getBoardButton(r, c).setText("");
                 moveMessage = model.getBoard().moveAnimal(selectedAnimal, 'D');
+                Moves = model.getBoard().possibleMove(selectedAnimal);
                 break;
 
             default:
@@ -244,18 +250,27 @@ public class GameController implements KeyListener, ActionListener
 
         // if the move did not happen, the player's turn stays the same
         if (moveMessage.equals("Invalid move!")
-                 || moveMessage.contains("Unable to capture"))
+                || moveMessage.equals("Out of bounds!")
+                 || moveMessage.contains("Unable to capture") 
+                || moveMessage.contains("cannot move"))
         {
-            view.updateStatus(moveMessage + " Try again.");
+            view.updateStatus(moveMessage + " Try again. " + Moves);
             view.refreshBoard(model);
             view.requestFocusInWindow();
             selectedAnimal = null;
             return;
         }
+        else if( moveMessage.contains("is still Trapped!"))
+        {
+            view.updateStatus(moveMessage + " " + Moves);
+            view.refreshBoard(model);
+            view.requestFocusInWindow();
+            selectedAnimal.setSkipTurn(false);
+            selectedAnimal = null;
+            return;
+        }
 
-        // changes turn only after a successful move
-        model.updateTurn();
-        model.checkWin();
+model.checkWin();
 
         if (model.getWinner() != null)
         {
@@ -265,6 +280,8 @@ public class GameController implements KeyListener, ActionListener
         }
         else
         {
+             // changes turn only after a successful move
+            model.updateTurn();
             view.updateStatus(
                     moveMessage + " Player "
                             + model.getCurrentTurn() + "'s turn."
