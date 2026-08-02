@@ -29,12 +29,9 @@ public class Game {
     }
 
     /**
-     * Compares the chosen animal piece of each player
-     * and uses it to determine which player goes first.
+     * Used to shuffle the ranks of the animals 
      *
-     * @param p1Choice the chosen animal piece of player 1
-     * @param p2Choice the chosen animal piece of player 2
-     * @return the player that goes first
+     * @return the shuffled ranks of the animals 
      */
 
     public ArrayList<Integer> shuffleRanks()
@@ -51,6 +48,14 @@ public class Game {
         return ranks;
     }
 
+/**
+     * Compares the chosen animal piece of each player
+     * and uses it to determine which player goes first.
+     *
+     * @param p1Choice the chosen animal piece of player 1
+     * @param p2Choice the chosen animal piece of player 2
+     * @return the player that goes first
+     */
     public int firstPick(Animal p1Choice, Animal p2Choice) {
         if (p1Choice.getRank() > p2Choice.getRank()) {
             //System.out.println("Player 1 moves first.");
@@ -84,6 +89,19 @@ public class Game {
     {
         Player currentPlayer = (this.currentTurn == 1) ? this.player1 : this.player2;
 
+
+        ArrayList<Animal> animals= currentPlayer.getAnimals();
+
+        for(Animal animal : animals)
+        {
+            Space curSpace = animal.getCurrentSpace(); 
+
+            if(curSpace.isEnemyDen(currentTurn))
+            {
+                this.winner = currentPlayer;
+                this.isGameOver = true;
+            }
+        }
         for (int r = 0; r < Board.ROWS; r++)
         {
             for (int c = 0; c < Board.COLS; c++)
